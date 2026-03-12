@@ -5,8 +5,7 @@ import notificationHelper from '../utils/notificationHelper'
 export function useEvent() {
   const loading = ref(false)
   const form = ref({
-    // id: '',
-    company_id: 1, // Default to 1 or set to a valid company id
+    company_id: 1,
     bride_name: '',
     groom_name: '',
     wedding_date: '',

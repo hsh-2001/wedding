@@ -3,7 +3,8 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   if (import.meta.server) return;
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null;
-  if (!user && to.path !== '/admin/login') {
+  const allowGuestPaths = ['/admin/login', '/service', '/', '/contact', '/about'];
+  if (!user && !allowGuestPaths.includes(to.path)) {
     return navigateTo('/admin/login')
   }
 

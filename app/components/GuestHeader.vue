@@ -12,7 +12,6 @@
         </span>
       </div>
 
-      <!-- Desktop Menu -->
       <nav class="hidden md:flex items-center gap-6">
         <NuxtLink to="/" :class="['nav-link', $route.path === '/' ? 'active-link' : '']">{{ t('home') }}</NuxtLink>
         <NuxtLink to="/service" :class="['nav-link', $route.path === '/service' ? 'active-link' : '']">{{ t('service') }}</NuxtLink>
