@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import { findUserByUsernameOrEmail, createUser } from '../repositories/userRepository';
 import { getPgPool } from '../config/connection';
 import { ApiResponse } from '../../shared/types/baseApi';
+import tokenService from './tokenService';
 
 export async function registerUser(username: string, email: string, password: string) {
   if (!username || !email || !password) {
@@ -25,7 +26,7 @@ export async function loginUser(username: string, password: string) {
   }
 
   const pool = getPgPool();
-  const { rows } = await pool.query('SELECT id, password_hash FROM users WHERE username = $1', [username]);
+  const { rows } = await pool.query('SELECT id, username, email, password_hash FROM users WHERE username = $1', [username]);
   if (rows.length === 0) {
     return ApiResponse.error('Invalid username or password.');
   }
@@ -36,6 +37,6 @@ export async function loginUser(username: string, password: string) {
     return ApiResponse.error('Invalid username or password.');
   }
 
-  // TODO: Generate and return a token/session
-  return ApiResponse.success('Login successful.', { userId: user.id });
+  const token = tokenService.generateToken({ id: user.id, company_id: 1, name: user.username, email: user.email });
+  return ApiResponse.success('Login successful.', { ...user , token });
 }

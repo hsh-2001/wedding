@@ -63,12 +63,15 @@ export function useAuthentication() {
       if (valid) {
         loading.value = true
         try {
-          const res = await loginApi(form.value.username, form.value.password)
-          if (res.status_code === 200) {
-            notificationHelper.success('Login successful!')
-            userId.value = res.data?.userId || null
+          const response = await loginApi(form.value.username, form.value.password)
+          if (response.isSuccess) {
+            notificationHelper.success(response.message || 'Login successful!')
+            localStorage.setItem('user', JSON.stringify(response.data))
+            setTimeout(() => {
+              window.location.href = '/'
+            }, 1000)
           } else {
-            notificationHelper.error(res.message || 'Login failed.')
+            notificationHelper.error(response.message || 'Login failed.')
             userId.value = null
           }
         } catch (err: any) {

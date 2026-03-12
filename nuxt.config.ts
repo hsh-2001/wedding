@@ -7,6 +7,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     pgConnectionString: process.env.NUXT_PG_CONNECTION_STRING,
+    JWT_SECRET: process.env.NUXT_JWT_SECRET,
+    JWT_EXPIRES_IN: process.env.NUXT_JWT_EXPIRES_IN || "1h",
   },
   vite: {
     plugins: [

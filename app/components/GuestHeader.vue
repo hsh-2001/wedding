@@ -30,7 +30,7 @@
           </el-select>
         </div>
 
-        <el-button type="primary" plain @click="navigateTo('/admin/login')">
+        <el-button v-if="!isAuthenticated" type="primary" plain @click="navigateTo('/admin/login')">
           Admin Login
         </el-button>
 
@@ -52,7 +52,7 @@
         <NuxtLink to="/about" :class="['mobile-link', $route.path === '/about' ? 'active-link-mobile' : '']">{{ t('about') }}</NuxtLink>
         <NuxtLink to="/contact" :class="['mobile-link', $route.path === '/contact' ? 'active-link-mobile' : '']">{{ t('contact') }}</NuxtLink>
 
-        <NuxtLink to="/admin/login" class="bg-pink-500 text-white px-4 py-2 rounded-lg text-center font-semibold">
+        <NuxtLink v-if="!isAuthenticated" to="/admin/login" class="bg-pink-500 text-white px-4 py-2 rounded-lg text-center font-semibold">
           Admin Login
         </NuxtLink>
       </nav>
@@ -66,7 +66,7 @@
 import { ref, watch } from 'vue'
 import useHeader from '../composables/useHeader'
 
-const { t, currentLocale, changeLanguage } = useHeader()
+const { t, currentLocale, changeLanguage, isAuthenticated } = useHeader()
 
 const selectedLang = ref(currentLocale.value)
 const mobileMenu = ref(false)

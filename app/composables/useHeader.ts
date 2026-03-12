@@ -17,11 +17,20 @@ export default function useHeader() {
     i18n.setLocale(lang);
   }
 
+  const isAuthenticated = computed(() => {
+    if (import.meta.server) {
+      return false;
+    }
+    const user = localStorage.getItem('user');
+    return !!user && !!JSON.parse(user).token; 
+  });
+
   return {
     currentLocale,
     getHeaderTitle,
     changeLanguage,
     t: i18n.t,
-    locale: i18n.locale
+    locale: i18n.locale,
+    isAuthenticated,
   };
 };

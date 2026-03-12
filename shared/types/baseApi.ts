@@ -32,6 +32,6 @@ export class ApiResponse<T> implements IApiResponse<T> {
     }
 }
 
-export const getBaseResponse = <T>(status_code: number, message: string, data?: T): ApiResponse<T> => {
-    return new ApiResponse<T>(status_code, message, data);
+export const getBaseResponse = <T>(response: IBaseApiResponse<T>): ApiResponse<T> => {
+    return new ApiResponse<T>(response.status_code, response.message, response.data);
 };
