@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import useHeader from '../composables/useHeader'
 
 const { t, currentLocale, changeLanguage, isAuthenticated } = useHeader()

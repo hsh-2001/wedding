@@ -46,6 +46,10 @@
 import { useAuthentication } from '../../composables/useAuthentication'
 import { ref } from 'vue'
 
+definePageMeta({
+  layout: 'auth'
+})
+
 const loginFormRef = ref()
 const registerFormRef = ref()
 
