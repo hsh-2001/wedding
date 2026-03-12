@@ -1,0 +1,13 @@
+{
+  "header.title": "ហាងអាពាហ៍ពិពាហ៍",
+  "header.home": "ទំព័រដើម",
+  "header.about": "អំពីយើង",
+  "header.services": "សេវាកម្ម",
+  "header.contact": "ទំនាក់ទំនង",
+  "login.title": "ចូលគណនី",
+  "register.title": "ចុះឈ្មោះ",
+  "login.username": "ឈ្មោះអ្នកប្រើ",
+  "login.password": "ពាក្យសម្ងាត់",
+  "register.email": "អ៊ីមែល",
+  "register.confirm_password": "បញ្ជាក់ពាក្យសម្ងាត់"
+}

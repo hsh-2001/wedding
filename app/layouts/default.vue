@@ -1,5 +1,6 @@
 <template>
     <div class="min-h-screen w-full">
+        <GuestHeader />
         <div class="min-h-screen w-full">
             <slot />
         </div>

@@ -1,0 +1,13 @@
+{
+  "header.title": "Wedding Store",
+  "header.home": "Home",
+  "header.about": "About",
+  "header.services": "Services",
+  "header.contact": "Contact",
+  "login.title": "Login",
+  "register.title": "Register",
+  "login.username": "Username",
+  "login.password": "Password",
+  "register.email": "Email",
+  "register.confirm_password": "Confirm Password"
+}
