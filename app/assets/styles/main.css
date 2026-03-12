@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+	/* Wedding Color System */
+	/* Primary Colors */
+	--color-primary: #B388FF; /* Lavender */
+	--color-secondary: #FFB6B9; /* Blush Pink */
+	--color-accent: #FFD700; /* Gold */
+	--color-success: #A8E6CF; /* Mint */
+	--color-warning: #FF8C42; /* Orange */
+	--color-error: #FF6F61; /* Coral */
+
+	/* Neutral Colors */
+	--color-background: #FFF8F0;
+	--color-surface: #FFFFFF;
+	--color-border: #E0E0E0;
+	--color-text: #333333;
+	--color-muted: #888888;
+}
+
+/* Example usage */
+body {
+	background-color: var(--color-background);
+	color: var(--color-text);
+}
