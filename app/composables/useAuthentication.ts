@@ -66,10 +66,15 @@ export function useAuthentication() {
           const response = await loginApi(form.value.username, form.value.password)
           if (response.isSuccess) {
             notificationHelper.success(response.message || 'Login successful!')
-            localStorage.setItem('user', JSON.stringify(response.data))
+            const token: string | undefined = response.data?.token;
+            if (token) {
+              if (typeof window !== 'undefined') {
+                useCookie('token').value = token;
+              }
+            }
             setTimeout(() => {
-              window.location.href = '/'
-            }, 1000)
+              window.location.href = '/';
+            }, 1000);
           } else {
             notificationHelper.error(response.message || 'Login failed.')
             userId.value = null

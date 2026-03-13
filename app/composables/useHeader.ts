@@ -1,5 +1,7 @@
 import { useNuxtApp } from '#app';
 import { computed } from 'vue';
+import type { INavbarItem } from '~/models/navbar';
+import { ChartGantt, Settings } from 'lucide-vue-next';
 
 export default function useHeader() {
   const nuxtApp = useNuxtApp();
@@ -18,11 +20,61 @@ export default function useHeader() {
   }
 
   const isAuthenticated = computed(() => {
-    if (import.meta.server) {
+    if (typeof window === 'undefined') {
       return false;
     }
-    const user = localStorage.getItem('user');
-    return !!user && !!JSON.parse(user).token; 
+    const token = useCookie('token').value;     
+    return !!token;
+  });
+
+  const route = useRoute();
+
+  const guestRoutes = computed<INavbarItem[]>(() => {
+    return [
+      { name: 'home', path: '/', activedPath: '/' },
+      { name: 'service', path: '/service', activedPath: '/service' },
+      { name: 'about', path: '/about', activedPath: '/about' },
+      { name: 'contact', path: '/contact', activedPath: '/contact' },
+    ];
+  });
+
+  const adminRoutes = computed<INavbarItem[]>(() => {
+    return [
+      {
+        name: 'Dashboard',
+        path: '/admin/dashboard',
+        icon: ChartGantt,
+        activedPath: '/admin/dashboard',
+      },
+      {
+        name: 'Events',
+        path: '/admin/events',
+        icon: ChartGantt,
+        activedPath: ['/admin/events', '/admin/events/wedding/create'],
+      },
+      {
+        name: 'Settings',
+        path: '/admin/settings',
+        icon: Settings,
+        activedPath: '/admin/settings'
+      },
+    ];
+  });
+
+
+  const isActivePath = computed(() => (item: INavbarItem) => {
+    if (Array.isArray(item.activedPath)) {
+      console.log('Checking active:', {
+        routePath: route.path,
+        activedPath: item.activedPath
+      });
+      return item.activedPath.includes(route.path);
+    }
+    console.log('Checking active:', {
+      routePath: route.path,
+      activedPath: item.activedPath
+    });
+    return route.path === item.activedPath;
   });
 
   return {
@@ -32,5 +84,8 @@ export default function useHeader() {
     t: i18n.t,
     locale: i18n.locale,
     isAuthenticated,
+    guestRoutes,
+    adminRoutes,
+    isActivePath,
   };
-};
+}

@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen w-full">
-        <GuestHeader />
-        <div class="min-h-screen w-full">
+        <DesktopHeader />
+        <div class="min-h-screen container mx-auto px-4 py-6">
             <slot />
         </div>
         <TheFooter />

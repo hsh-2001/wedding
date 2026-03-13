@@ -2,13 +2,17 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
-  css: ["@/assets/styles/main.css"],
+  css: ["@/assets/styles/main.css", "@/assets/styles/element-plus.css"],
   devtools: { enabled: true },
 
   runtimeConfig: {
     pgConnectionString: process.env.NUXT_PG_CONNECTION_STRING,
     JWT_SECRET: process.env.NUXT_JWT_SECRET,
     JWT_EXPIRES_IN: process.env.NUXT_JWT_EXPIRES_IN || "1h",
+  },
+  routeRules: {
+    // "/api/auth/**": { appMiddleware: false },
+    // "/api/**": { appMiddleware: "auth" },
   },
   vite: {
     plugins: [
@@ -33,5 +37,6 @@ export default defineNuxtConfig({
     ],
     defaultLocale: "en",
     langDir: "./locales/",
+    strategy: 'no_prefix',
   },
 });

@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
 :root {
-	--color-primary: #7c3aed; /* Modern purple */
-	--color-accent: #f43f5e;  /* Modern pink */
+	--color-primary: #F2689B; /* Modern purple */
+	--color-secondary: #F9A8D4; /* Soft pink */
+	--color-tertiary: #d3d3d3; /* Light pink */
+	--color-background: #FFFFFF; /* Clean white */
+	--text-1: #333333; /* Dark gray for readability */
+	--text-2: #f4f4f4; /* Medium gray for secondary text */
+	--active-color: #F2689B; /* Same as primary for active states */
+	--primary-button-bg: var(--color-primary);
+	--secondary-button-bg: var(--color-secondary);
+	--text-button: var(--text-2);
 }

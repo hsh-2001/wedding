@@ -1,0 +1,13 @@
+
+:root {
+    --el-color-primary: var(--color-primary) !important;
+    --el-border-color-primary: var(--color-primary) !important;
+}
+
+.el-button--primary {
+    --el-button-hover-bg-color: var(--color-primary) !important;
+    --el-button-hover-border-color: var(--color-primary) !important;
+}
+.el-button--primary:hover {
+  opacity: 0.8;
+}
