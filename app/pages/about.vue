@@ -1,6 +1,6 @@
 <template>
   <div>
-    Comming soon...
+    {{ $t('Coming soon...') }}
   </div>
 </template>
 
