@@ -36,17 +36,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Create CNAME file
-        run: echo "hsh-2001.github.io" > .output/public/CNAME
-
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
 
       - name: Show deployed domain
         run: |
           echo "Deployment complete!"
-          echo "Your site is live at: https://hsh-2001.github.io/"
-          echo "Or via your custom domain: https://hsh-2001.github.io/wedding/"
-          if [ -f .output/public/CNAME ]; then
-            echo "Custom domain set: $(cat .output/public/CNAME)"
-          fi
+          echo "Your site is live at: https://hsh-2001.github.io/wedding/"
