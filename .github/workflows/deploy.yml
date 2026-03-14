@@ -35,3 +35,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Create CNAME file
+        run: echo "hsh-2001.github.io" > .output/public/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
