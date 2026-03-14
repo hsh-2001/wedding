@@ -1,14 +1,31 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-	--color-primary: #F2689B; /* Modern purple */
-	--color-secondary: #F9A8D4; /* Soft pink */
-	--color-tertiary: #d3d3d3; /* Light pink */
-	--color-background: #FFFFFF; /* Clean white */
-	--text-1: #333333; /* Dark gray for readability */
-	--text-2: #f4f4f4; /* Medium gray for secondary text */
-	--active-color: #F2689B; /* Same as primary for active states */
-	--primary-button-bg: var(--color-primary);
-	--secondary-button-bg: var(--color-secondary);
-	--text-button: var(--text-2);
+	--color-primary: #F2689B;
+	--color-secondary: #F9A8D4;
+	--color-tertiary: #d3d3d3;
+	--color-background: #FFFFFF;
+	--color-surface: #FFFFFF;
+	--color-border: #f3f4f6;
+	--text-main: #1f2937;
+	--text-muted: #4b5563;
+	--text-light: #9ca3af;
+	--active-color: #F2689B;
+}
+
+.dark {
+	--color-background: #0f172a;
+	--color-surface: #1e293b;
+	--color-border: #334155;
+	--text-main: #f8fafc;
+	--text-muted: #cbd5e1;
+	--text-light: #94a3b8;
+}
+
+body {
+	background-color: var(--color-background);
+	color: var(--text-main);
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

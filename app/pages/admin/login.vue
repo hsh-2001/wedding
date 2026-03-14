@@ -1,37 +1,37 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-purple-100">
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10 animate-fade-in">
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-purple-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div class="w-full max-w-md bg-(--color-surface) rounded-2xl shadow-xl p-10 animate-fade-in border border-(--color-border)">
       <div class="flex justify-center mb-8 gap-2">
-        <el-button :type="activeForm === 'login' ? 'primary' : 'default'" @click="switchForm('login')" class="w-1/2 rounded-full">Login</el-button>
-        <el-button :type="activeForm === 'register' ? 'primary' : 'default'" @click="switchForm('register')" class="w-1/2 rounded-full">Register</el-button>
+        <el-button :type="activeForm === 'login' ? 'primary' : 'default'" @click="switchForm('login')" class="w-1/2">Login</el-button>
+        <el-button :type="activeForm === 'register' ? 'primary' : 'default'" @click="switchForm('register')" class="w-1/2">Register</el-button>
       </div>
       <transition name="fade-slide" mode="out-in">
         <div v-if="activeForm === 'login'" key="login">
           <el-form :model="form" :rules="loginRules" ref="loginFormRef" class="space-y-6" label-position="top">
-            <el-form-item label="Username" prop="username">
-              <el-input v-model="form.username" placeholder="Enter your username" size="large" prefix-icon="el-icon-user" />
+            <el-form-item :label="$t('Username')" prop="username">
+              <el-input v-model="form.username" :placeholder="$t('Enter your username')" size="large" />
             </el-form-item>
-            <el-form-item label="Password" prop="password">
-              <el-input v-model="form.password" type="password" placeholder="Enter your password" size="large" prefix-icon="el-icon-lock" />
+            <el-form-item :label="$t('Password')" prop="password">
+              <el-input v-model="form.password" type="password" :placeholder="$t('Enter your password')" size="large" show-password />
             </el-form-item>
-            <el-button type="primary" class="w-full mt-4 rounded-full" @click="onLogin" size="large">Login</el-button>
+            <el-button type="primary" class="w-full mt-4" @click="onLogin" size="large">Login</el-button>
           </el-form>
         </div>
         <div v-else key="register">
           <el-form :model="registerForm" :rules="registerRules" ref="registerFormRef" class="space-y-6" label-position="top">
-            <el-form-item label="Username" prop="username">
-              <el-input v-model="registerForm.username" placeholder="Choose a username" size="large" prefix-icon="el-icon-user" />
+            <el-form-item :label="$t('Username')" prop="username">
+              <el-input v-model="registerForm.username" :placeholder="$t('Enter your username')" size="large" />
             </el-form-item>
-            <el-form-item label="Email" prop="email">
-              <el-input v-model="registerForm.email" placeholder="Enter your email" size="large" prefix-icon="el-icon-message" />
+            <el-form-item :label="$t('Email')" prop="email">
+              <el-input v-model="registerForm.email" :placeholder="$t('Enter your email')" size="large" />
             </el-form-item>
-            <el-form-item label="Password" prop="password">
-              <el-input v-model="registerForm.password" type="password" placeholder="Create a password" size="large" prefix-icon="el-icon-lock" />
+            <el-form-item :label="$t('Password')" prop="password">
+              <el-input v-model="registerForm.password" type="password" :placeholder="$t('Create a password')" size="large" show-password />
             </el-form-item>
-            <el-form-item label="Confirm Password" prop="confirm_password">
-              <el-input v-model="registerForm.confirm_password" type="password" placeholder="Confirm your password" size="large" prefix-icon="el-icon-lock" />
+            <el-form-item :label="$t('Confirm Password')" prop="confirm_password">
+              <el-input v-model="registerForm.confirm_password" type="password" :placeholder="$t('Confirm your password')" size="large" show-password />
             </el-form-item>
-            <el-button type="primary" class="w-full mt-4 rounded-full" @click="onRegister" size="large">Register</el-button>
+            <el-button type="primary" class="w-full mt-4" @click="onRegister" size="large">Register</el-button>
           </el-form>
         </div>
       </transition>

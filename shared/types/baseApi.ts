@@ -1,5 +1,3 @@
-import type { T } from "vue-router/dist/router-CWoNjPRp.mjs";
-
 interface IBaseApiResponse<T> {
     data?: T;
     status_code: number;

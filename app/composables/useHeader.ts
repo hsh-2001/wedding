@@ -64,16 +64,8 @@ export default function useHeader() {
 
   const isActivePath = computed(() => (item: INavbarItem) => {
     if (Array.isArray(item.activedPath)) {
-      console.log('Checking active:', {
-        routePath: route.path,
-        activedPath: item.activedPath
-      });
       return item.activedPath.includes(route.path);
     }
-    console.log('Checking active:', {
-      routePath: route.path,
-      activedPath: item.activedPath
-    });
     return route.path === item.activedPath;
   });
 
@@ -84,7 +76,7 @@ export default function useHeader() {
     t: i18n.t,
     locale: i18n.locale,
     isAuthenticated,
-    guestRoutes,
+    guestRoutes,  
     adminRoutes,
     isActivePath,
   };

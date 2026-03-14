@@ -38,7 +38,41 @@ const getWeddingEventByCompanyId = async (company_id: number): Promise<ApiRespon
   }
 }
 
+const getWeddingEventById = async (id: string): Promise<ApiResponse<IWeddingEventResponse | null>> => {
+  try {
+    const sql = `
+      SELECT 
+        w.id,
+        w.company_id,
+        w.bride_name,
+        w.groom_name,
+        w.wedding_date,
+        w.venue_name,
+        w.venue_address,
+        w.description,
+        we.event_name,
+        we.event_date,
+        we.location,
+        w.created_at,
+        w.updated_at
+      FROM weddings w
+      LEFT JOIN wedding_events we ON w.id = we.wedding_id
+      WHERE w.id = $1
+      LIMIT 1
+    `;
+    const params = [id];
+    const result = await connection.getData<IWeddingEventResponse>(sql, params);
+    if (!result || result.length === 0) {
+      return ApiResponse.error('Failed to retrieve wedding event', null);
+    }
+    return ApiResponse.success('Wedding event retrieved successfully', result[0]);
+  } catch (error: any) {
+    return ApiResponse.error('Failed to retrieve wedding event', error.message);
+  }
+}
+
 export default {
   upsertWedding,
   getWeddingEventByCompanyId,
+  getWeddingEventById,
 }

@@ -1,17 +1,23 @@
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 
 const dateTimeForDisplay = (date: Date | string): string => {
+  if (!date) return '';
   const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (!isValid(dateObj)) return '';
   return format(dateObj, 'yyyy-MM-dd HH:mm:ss');
 };
 
 const timeForDisplay = (date: Date | string): string => {
+  if (!date) return '';
   const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (!isValid(dateObj)) return '';
   return format(dateObj, 'HH:mm:ss');
 };
 
 const dateForDisplay = (date: Date | string): string => {
+  if (!date) return '';
   const dateObj = typeof date === 'string' ? new Date(date) : date;
+  if (!isValid(dateObj)) return '';
   return format(dateObj, 'yyyy-MMMM-dd');
 };
 

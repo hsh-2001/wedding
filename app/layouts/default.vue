@@ -1,10 +1,11 @@
 <template>
-    <div class="min-h-screen w-full">
+    <div class="min-h-screen w-full flex flex-col">
         <DesktopHeader />
-        <div class="min-h-screen container mx-auto px-4 py-6">
+        <div class="grow container mx-auto p-2 mb-20 md:mb-0">
             <slot />
         </div>
-        <TheFooter />
+        <MobileNavbar />
+        <!-- <TheFooter /> -->
     </div>
 </template>
 

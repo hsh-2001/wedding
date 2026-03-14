@@ -2,7 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
-  css: ["@/assets/styles/main.css", "@/assets/styles/element-plus.css"],
+  css: ["@/assets/styles/main.css", "@/assets/styles/element-plus.css", "element-plus/theme-chalk/dark/css-vars.css"],
   devtools: { enabled: true },
 
   runtimeConfig: {
@@ -19,9 +19,12 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
-
-  modules: ["@element-plus/nuxt", "@nuxtjs/i18n", "@pinia/nuxt"],
-
+  modules: ["@element-plus/nuxt", "@nuxtjs/i18n", "@pinia/nuxt", "@nuxtjs/color-mode"],
+  colorMode: {
+    classSuffix: '',
+    preference: 'light',
+    fallback: 'light',
+  },
   i18n: {
     locales: [
       {

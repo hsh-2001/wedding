@@ -1,83 +1,83 @@
 <template>
-  <header class="w-full bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm sticky top-0 z-50">
+  <header 
+    class="w-full bg-(--color-surface) border-b border-(--color-border) sticky top-0 z-50 transition-colors duration-300 shadow-sm"
+    :class="{ 'shadow-md': isScrolled }"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-
-      <div class="flex items-center gap-3">
-        <img src="/icons/logo.png" class="h-11 w-11 rounded-xl shadow border border-white/40" />
-
-        <span class="text-xl md:text-2xl font-bold text-primary">
-          {{ t('TEST') }}
-        </span>
+      <!-- Logo Section -->
+      <div class="flex items-center gap-2 cursor-pointer group" @click="navigateTo('/')">
+        <div class="relative w-10 h-10 overflow-hidden rounded-xl border border-(--color-border) shadow-sm transition-transform group-hover:scale-105">
+          <img src="/icons/logo.png" class="w-full h-full object-cover" alt="Logo" />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold tracking-tight text-(--text-main) transition-colors group-hover:text-(--color-primary)">
+            {{ t('TEST') }}
+          </span>
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-(--text-light)">Premium Store</span>
+        </div>
       </div>
 
-      <nav class="hidden md:flex items-center gap-6">
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1">
         <template v-if="!isAuthenticated">
-          <NuxtLink v-for="route in guestRoutes" :key="route.path" :to="route.path"
-            :class="['nav-link', isActivePath(route) ? 'active-link' : '']">
-            {{ t(route.name) }}
+          <NuxtLink 
+            v-for="routeItem in guestRoutes" 
+            :key="routeItem.path" 
+            :to="routeItem.path"
+            class="nav-link"
+            :class="{ 'active-link': isActivePath(routeItem) }"
+          >
+            {{ t(routeItem.name) }}
           </NuxtLink>
         </template>
         <template v-else>
-          <NuxtLink v-for="route in adminRoutes"
-            :key="route.path"
-            :to="route.path"
-            :class="['nav-link', isActivePath(route) ? 'active-link' : '']">
-            {{ t(route.name) }}
+          <NuxtLink 
+            v-for="routeItem in adminRoutes"
+            :key="routeItem.path"
+            :to="routeItem.path"
+            class="nav-link"
+            :class="{ 'active-link': isActivePath(routeItem) }"
+          >
+            {{ t(routeItem.name) }}
           </NuxtLink>
         </template>
       </nav>
 
-      <div class="flex items-center gap-3 w-auto">
-
+      <div class="flex items-center gap-2">
+        <!-- Language Select -->
         <div class="w-24">
-          <el-select v-model="selectedLang" @change="changeLanguage">
-
-            <el-option label="English" name="en" value="en" />
-            <el-option label="ខ្មែរ" name="km" value="km" />
+          <el-select v-model="selectedLang" @change="changeLanguage" class="custom-select" size="default">
+            <el-option label="English" value="en">
+              <span class="flex items-center gap-2">🇺🇸 En</span>
+            </el-option>
+            <el-option label="ខ្មែរ" value="km">
+              <span class="flex items-center gap-2">🇰🇭 Km</span>
+            </el-option>
           </el-select>
         </div>
 
-        <el-button v-if="!isAuthenticated" type="primary" plain @click="navigateTo('/admin/login')">
-          Admin Login
+        <ThemeToggle />
+
+        <el-button 
+          v-if="!isAuthenticated" 
+          type="primary" 
+          class="!rounded-lg !font-bold !px-6 hover:!opacity-90 transition-all"
+          @click="navigateTo('/admin/login')"
+        >
+          {{ t('Login') }}
         </el-button>
-
-        <button class="md:hidden p-2 rounded-lg hover:bg-gray-100" @click="toggleMenu">
-
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-
       </div>
     </div>
-
-    <div v-if="mobileMenu" class="md:hidden border-t bg-white">
-
-      <nav class="flex flex-col p-4 gap-3">
-        <NuxtLink to="/" :class="['mobile-link', $route.path === '/' ? 'active-link-mobile' : '']">{{ t('home') }}
-        </NuxtLink>
-        <NuxtLink to="/about" :class="['mobile-link', $route.path === '/about' ? 'active-link-mobile' : '']">{{
-          t('about') }}</NuxtLink>
-        <NuxtLink to="/contact" :class="['mobile-link', $route.path === '/contact' ? 'active-link-mobile' : '']">{{
-          t('contact') }}</NuxtLink>
-
-        <NuxtLink v-if="!isAuthenticated" to="/admin/login"
-          class="bg-pink-500 text-white px-4 py-2 rounded-lg text-center font-semibold">
-          Admin Login
-        </NuxtLink>
-      </nav>
-
-    </div>
-
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 import useHeader from '../composables/useHeader'
 
+const route = useRoute()
 const { t, currentLocale, changeLanguage, isAuthenticated,
   guestRoutes,
   adminRoutes,
@@ -85,46 +85,37 @@ const { t, currentLocale, changeLanguage, isAuthenticated,
 } = useHeader()
 
 const selectedLang = ref(currentLocale.value)
-const mobileMenu = ref(false)
+const isScrolled = ref(false)
 
-const toggleMenu = () => {
-  mobileMenu.value = !mobileMenu.value
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 20
 }
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 </script>
 
 <style scoped>
+@reference "@/assets/styles/main.css";
+
 .nav-link {
-  font-weight: 600;
-  color: #444;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: all .25s;
+  @apply px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200;
+  color: var(--text-muted);
 }
 
 .nav-link:hover {
-  background: #fdf2f8;
-  color: #ec4899;
+  background-color: var(--color-background);
+  color: var(--text-main);
 }
 
 .active-link {
-  background: #fdf2f8;
-  color: #ec4899;
-}
-
-.mobile-link {
-  font-weight: 600;
-  padding: 10px;
-  border-radius: 8px;
-  transition: 0.2s;
-}
-
-.mobile-link:hover {
-  background: #f3f4f6;
-}
-
-.active-link-mobile {
-  background: #f3f4f6;
-  color: #ec4899;
+  background-color: var(--color-background);
+  color: var(--color-primary) !important;
 }
 </style>

@@ -4,7 +4,7 @@
       Wedding Services
     </h1>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+    <div class="grid gap-2 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
       
       <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition">
         <img

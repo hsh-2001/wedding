@@ -1,7 +1,8 @@
 import { ref } from 'vue'
-import { upsertEventApi } from '../utils/apiCalling'
+import { upsertEventApi, getWeddingEventApi, getWeddingEventByIdApi } from '../utils/apiCalling'
 import notificationHelper from '../utils/notificationHelper'
 import { WeddingEventList } from '~/models/event'
+import type { IWeddingUpsertInput } from '~/../shared/types/wedding'
 
 export function useEvent() {
   const loading = ref(false)
@@ -41,11 +42,11 @@ export function useEvent() {
     loading.value = true
     try {
       const result = await upsertEventApi(eventModel.value)
-      notificationHelper.success('Event created successfully')
+      notificationHelper.success('Event saved successfully')
       console.log('Upsert result:', result)
     } catch (error) {
-      console.error('Error creating event:', error)
-      notificationHelper.error('Failed to create event')
+      console.error('Error saving event:', error)
+      notificationHelper.error('Failed to save event')
     } finally {
       loading.value = false
     }
@@ -66,6 +67,29 @@ export function useEvent() {
     }
   }
 
+  const getWeddingEventById = async (id: string) => {
+    loading.value = true
+    try {
+      const result = await getWeddingEventByIdApi(id);
+      if (result.isSuccess && result.data) {
+        eventModel.value = {
+          id: result.data.id,
+          company_id: result.data.company_id,
+          bride_name: result.data.bride_name || '',
+          groom_name: result.data.groom_name || '',
+          wedding_date: result.data.wedding_date ? new Date(result.data.wedding_date).toISOString().split('T')[0] : '',
+          venue_name: result.data.venue_name || '',
+          venue_address: result.data.venue_address || '',
+          description: result.data.description || ''
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching wedding event by ID:', error);
+    } finally {
+      loading.value = false;
+    }
+  }
+
 
   return {
     loading,
@@ -75,5 +99,6 @@ export function useEvent() {
     eventModel,
     weddingEventList,
     getWeddingEvent,
+    getWeddingEventById,
   }
 }

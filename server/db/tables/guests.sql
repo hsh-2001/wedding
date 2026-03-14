@@ -1,12 +1,16 @@
+-- DROP TABLE IF EXISTS guests;
 CREATE TABLE guests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     wedding_id UUID,
     group_id UUID,
-    guest_name VARCHAR(150),
-    phone VARCHAR(30),
-    email VARCHAR(150),
-    invitation_code VARCHAR(30) UNIQUE,
-    max_guests INTEGER DEFAULT 1,
+    name VARCHAR(100),
+    title VARCHAR(250),
+    phone VARCHAR(20),
+    email VARCHAR(50),
+    invitation_code VARCHAR(30),
+    remark TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+    updated_at TIMESTAMP DEFAULT NOW(),
+
+    UNIQUE (wedding_id, invitation_code)
 );

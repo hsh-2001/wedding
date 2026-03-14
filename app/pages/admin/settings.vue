@@ -1,54 +1,72 @@
 <template>
-  <div class="max-w-6xl mx-auto p-6 space-y-6">
+  <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
-    <div class="flex items-center gap-3">
-      <Building2 class="w-6 h-6 text-primary" />
-      <h1 class="text-2xl font-semibold">Company Settings</h1>
-    </div>
+    <PageHeader 
+      title="Company Settings" 
+      description="Manage your store's information, branding, and notification preferences."
+      :icon="Building2"
+    />
 
-    <el-card shadow="never" class="rounded-xl">
+    <el-card shadow="sm" class="rounded-xl border-(--color-border) bg-(--color-surface)">
       <template #header>
         <div class="flex items-center gap-2">
           <Building class="w-5 h-5 text-blue-500" />
-          <span class="font-medium">Company Information</span>
+          <span class="font-bold text-(--text-main)">Company Information</span>
         </div>
       </template>
 
-      <div class="grid md:grid-cols-2 gap-4">
-        <el-input v-model="form.company_name" placeholder="Company Name" />
+      <div class="grid md:grid-cols-2 gap-2">
+        <el-form-item label="Company Name" class="mb-0">
+          <el-input v-model="form.company_name" placeholder="Company Name" />
+        </el-form-item>
 
-        <el-input v-model="form.company_email" placeholder="Company Email" />
+        <el-form-item label="Company Email" class="mb-0">
+          <el-input v-model="form.company_email" placeholder="Company Email" />
+        </el-form-item>
 
-        <el-input v-model="form.phone" placeholder="Phone Number" />
+        <el-form-item label="Phone Number" class="mb-0">
+          <el-input v-model="form.phone" placeholder="Phone Number" />
+        </el-form-item>
 
-        <el-input v-model="form.website" placeholder="Website" />
+        <el-form-item label="Website" class="mb-0">
+          <el-input v-model="form.website" placeholder="Website" />
+        </el-form-item>
 
-        <el-input
-          v-model="form.address"
-          type="textarea"
-          placeholder="Company Address"
-          class="md:col-span-2"
-        />
+        <el-form-item label="Company Address" class="md:col-span-2 mb-0">
+          <el-input
+            v-model="form.address"
+            type="textarea"
+            :rows="3"
+            placeholder="Company Address"
+          />
+        </el-form-item>
       </div>
     </el-card>
 
     <!-- Branding -->
-    <el-card shadow="never" class="rounded-xl">
+    <el-card shadow="sm" class="rounded-xl border-(--color-border) bg-(--color-surface)">
       <template #header>
         <div class="flex items-center gap-2">
           <Palette class="w-5 h-5 text-pink-500" />
-          <span class="font-medium">Branding</span>
+          <span class="font-bold text-(--text-main)">Branding</span>
         </div>
       </template>
 
-      <div class="grid md:grid-cols-2 gap-4">
+      <div class="grid md:grid-cols-2 gap-2">
+        <el-form-item label="Primary Color" class="mb-0">
+          <el-input v-model="form.brand_color" placeholder="Primary Color">
+            <template #append>
+              <el-color-picker v-model="form.brand_color" size="small" />
+            </template>
+          </el-input>
+        </el-form-item>
 
-        <el-input v-model="form.brand_color" placeholder="Primary Color" />
-
-        <el-select v-model="form.theme" placeholder="Theme">
-          <el-option label="Light" value="light" />
-          <el-option label="Dark" value="dark" />
-        </el-select>
+        <el-form-item label="Default Theme" class="mb-0">
+          <el-select v-model="form.theme" placeholder="Theme" class="w-full">
+            <el-option label="Light" value="light" />
+            <el-option label="Dark" value="dark" />
+          </el-select>
+        </el-form-item>
 
         <div class="md:col-span-2">
           <el-upload
@@ -57,26 +75,25 @@
             action="#"
             :auto-upload="false"
           >
-            <Upload class="w-6 h-6 mx-auto mb-2" />
-            <div class="text-sm text-gray-500">
-              Upload Company Logo
+            <Upload class="w-8 h-8 mx-auto mb-2 text-(--text-light)" />
+            <div class="text-sm text-(--text-muted)">
+              Drag logo here or <span class="text-(--color-primary)">click to upload</span>
             </div>
           </el-upload>
         </div>
-
       </div>
     </el-card>
 
     <!-- Notification Settings -->
-    <el-card shadow="never" class="rounded-xl">
+    <el-card shadow="sm" class="rounded-xl border-(--color-border) bg-(--color-surface)">
       <template #header>
         <div class="flex items-center gap-2">
-          <Bell class="w-5 h-5 text-yellow-500" />
-          <span class="font-medium">Notifications</span>
+          <Bell class="w-5 h-5 text-amber-500" />
+          <span class="font-bold text-(--text-main)">Notifications</span>
         </div>
       </template>
 
-      <div class="flex items-center gap-2">
+      <div class="flex flex-col sm:flex-row gap-2">
         <el-switch
           v-model="form.email_notification"
           active-text="Email Notification"
@@ -89,39 +106,34 @@
       </div>
     </el-card>
 
-    <el-card shadow="never" class="rounded-xl">
-      <template #header>
-        <div class="flex items-center gap-2">
-          <Settings class="w-5 h-5 text-gray-600" />
-          <span class="font-medium">System Settings</span>
-        </div>
-      </template>
-
-      <div class="flex items-center gap-2">
-        <el-switch
-          v-model="form.allow_multiple_events"
-          active-text="Allow Multiple Weddings"
-        />
-
-        <el-switch
-          v-model="form.enable_guest_rsvp"
-          active-text="Enable Guest RSVP"
-        />
-      </div>
-    </el-card>
-
-    <div class="flex justify-end">
-      <el-button type="danger" plain @click="logout">
-        <LogOut class="w-4 h-4 mr-1" />
+    <div class="flex justify-end gap-2 pt-4">
+      <el-button @click="logout" class="!h-11">
+        <LogOut class="w-4 h-4 mr-2" />
         Logout
       </el-button>
-      <el-button type="primary" @click="saveSettings">
+      <el-button type="primary" @click="saveSettings" class="!h-11 !px-8 font-bold">
         Save Settings
       </el-button>
     </div>
 
   </div>
 </template>
+
+<style scoped>
+:deep(.el-card__header) {
+  padding: 16px 20px;
+}
+
+:deep(.el-upload-dragger) {
+  background-color: var(--color-background);
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+}
+
+:deep(.el-upload-dragger:hover) {
+  border-color: var(--color-primary);
+}
+</style>
 
 <script setup lang="ts">
 import {

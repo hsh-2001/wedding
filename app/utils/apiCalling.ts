@@ -2,6 +2,8 @@ import { api } from './api';
 import type { ApiResponse } from '../../shared/types/baseApi';
 import { getBaseResponse } from '../../shared/types/baseApi';
 import type { WeddingEventList } from '~/models/event';
+import type { IWeddingEventResponse } from '~/../shared/types/wedding';
+import { GuestResponse, type IUpsertGuestRequest } from '~/../shared/types/guest';
 
 export async function loginApi(username: string, password: string): Promise<ApiResponse<{ userId?: string; token?: string }>> {
   const result =  await api.post('/auth/login', { username, password });
@@ -20,5 +22,20 @@ export async function upsertEventApi(data: any): Promise<ApiResponse<any>> {
 
 export async function getWeddingEventApi(): Promise<ApiResponse<WeddingEventList[] | null>> {
   const result = await api.get('/event/wedding');
+  return getBaseResponse(result.data);
+}
+
+export async function getWeddingEventByIdApi(id: string): Promise<ApiResponse<IWeddingEventResponse | null>> {
+  const result = await api.get(`/event/${id}`);
+  return getBaseResponse(result.data);
+}
+
+export async function upsertGuestApi(data: IUpsertGuestRequest): Promise<ApiResponse<any>> {
+  const result = await api.post('/event/guest/upsert', data);
+  return getBaseResponse(result.data);
+}
+
+export async function getGuestsByWeddingIdApi(weddingId: string, limit = 25, offset = 0): Promise<ApiResponse<GuestResponse[]>> {
+  const result = await api.get(`/event/guest/guest-list?wedding_id=${weddingId}&limit=${limit}&offset=${offset}`);
   return getBaseResponse(result.data);
 }

@@ -7,7 +7,7 @@
       <el-input v-model="form.groom_name" placeholder="Groom name" />
     </el-form-item>
     <el-form-item label="Wedding Date" prop="wedding_date">
-      <el-date-picker v-model="form.wedding_date" type="date" placeholder="Wedding date" />
+      <el-date-picker v-model="form.wedding_date" type="date" placeholder="Wedding date" value-format="YYYY-MM-DD" />
     </el-form-item>
     <el-form-item label="Venue Name" prop="venue_name">
       <el-input v-model="form.venue_name" placeholder="Venue name" />
@@ -18,7 +18,6 @@
     <el-form-item label="Description" prop="description">
       <el-input v-model="form.description" type="textarea" placeholder="Description" />
     </el-form-item>
-    <el-button type="primary" :loading="loading" @click="onSubmit">Save Event</el-button>
   </el-form>
 </template>
 
@@ -26,10 +25,6 @@
 import { ref } from 'vue'
 import { useEvent } from '../composables/useEvent'
 
-const { loading, form, rules, submit } = useEvent()
+const { loading, form, rules } = useEvent()
 const formRef = ref()
-
-function onSubmit() {
-  submit(formRef.value)
-}
 </script>
