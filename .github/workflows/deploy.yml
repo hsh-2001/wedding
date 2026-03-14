@@ -24,6 +24,8 @@ jobs:
 
       - name: Static Build
         run: npx nuxi generate
+        env:
+          NUXT_APP_BASE_URL: /wedding/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

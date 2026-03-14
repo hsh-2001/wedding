@@ -2,7 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   app: {
-    baseURL: '/',
+    baseURL: '/wedding/',
   },
   compatibilityDate: "2025-07-15",
   css: ["@/assets/styles/main.css", "@/assets/styles/element-plus.css", "element-plus/theme-chalk/dark/css-vars.css"],
