@@ -17,8 +17,6 @@
           <span class="text-[10px] font-semibold uppercase tracking-wider text-(--text-light)">Premium Store</span>
         </div>
       </div>
-
-      <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center gap-1">
         <template v-if="!isAuthenticated">
           <NuxtLink 
@@ -45,8 +43,8 @@
       </nav>
 
       <div class="flex items-center gap-2">
-        <!-- Language Select -->
-        <div class="w-24">
+        <!-- Language & Theme Switchers Responsive -->
+        <div class="hidden sm:block w-24">
           <el-select v-model="selectedLang" @change="changeLanguage" class="custom-select" size="default">
             <el-option label="English" value="en">
               <span class="flex items-center gap-2">🇺🇸 En</span>
@@ -56,8 +54,23 @@
             </el-option>
           </el-select>
         </div>
+        <div class="sm:hidden flex items-center">
+          <button @click="showLangSheet = true" class="p-2 rounded-lg border border-(--color-border) bg-(--color-surface) text-(--text-main) text-lg">
+            <span v-if="selectedLang === 'en'">🇺🇸</span>
+            <span v-else>🇰🇭</span>
+          </button>
+        </div>
 
-        <ThemeToggle />
+        <div class="hidden sm:block">
+          <ThemeToggle />
+        </div>
+        <div class="sm:hidden flex items-center">
+          <button @click="showThemeSheet = true" class="p-2 rounded-lg border border-(--color-border) bg-(--color-surface)">
+            <span v-if="$colorMode.preference === 'light'">🌞</span>
+            <span v-else-if="$colorMode.preference === 'dark'">🌙</span>
+            <span v-else>🖥️</span>
+          </button>
+        </div>
 
         <el-button 
           v-if="!isAuthenticated" 
@@ -67,6 +80,22 @@
         >
           {{ t('Login') }}
         </el-button>
+
+        <!-- Mobile Language Sheet -->
+        <el-drawer v-model="showLangSheet" direction="rtl" size="60%" :with-header="false" class="sm:hidden simple-drawer">
+          <div class="flex flex-col gap-2 p-4">
+            <button @click="selectedLang = 'en'; changeLanguage('en'); showLangSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="selectedLang === 'en' ? 'bg-pink-50' : ''">🇺🇸 English</button>
+            <button @click="selectedLang = 'km'; changeLanguage('km'); showLangSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="selectedLang === 'km' ? 'bg-pink-50' : ''">🇰🇭 Khmer</button>
+          </div>
+        </el-drawer>
+        <!-- Mobile Theme Sheet -->
+        <el-drawer v-model="showThemeSheet" direction="rtl" size="60%" :with-header="false" class="sm:hidden simple-drawer">
+          <div class="flex flex-col gap-2 p-4">
+            <button @click="$colorMode.preference = 'light'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'light' ? 'bg-pink-50' : ''">🌞 Light</button>
+            <button @click="$colorMode.preference = 'dark'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'dark' ? 'bg-pink-50' : ''">🌙 Dark</button>
+            <button @click="$colorMode.preference = 'system'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'system' ? 'bg-pink-50' : ''">🖥️ System</button>
+          </div>
+        </el-drawer>
       </div>
     </div>
   </header>
@@ -77,6 +106,13 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import useHeader from '../composables/useHeader'
 
+let $colorMode
+try {
+  $colorMode = useColorMode()
+} catch (e) {
+  $colorMode = { preference: ref('light') }
+}
+
 const route = useRoute()
 const { t, currentLocale, changeLanguage, isAuthenticated,
   guestRoutes,
@@ -86,6 +122,8 @@ const { t, currentLocale, changeLanguage, isAuthenticated,
 
 const selectedLang = ref(currentLocale.value)
 const isScrolled = ref(false)
+const showLangSheet = ref(false)
+const showThemeSheet = ref(false)
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20
@@ -98,10 +136,12 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
-
 </script>
 
 <style scoped>
+.simple-drawer .el-drawer__body {
+  padding-bottom: 0 !important;
+}
 @reference "@/assets/styles/main.css";
 
 .nav-link {

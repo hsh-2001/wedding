@@ -164,7 +164,6 @@ const form = ref({
 })
 
 const saveSettings = () => {
-  console.log("Save company settings", form.value)
 }
 
 const logout = () => {

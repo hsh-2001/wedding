@@ -63,6 +63,9 @@ export default function useHeader() {
 
 
   const isActivePath = computed(() => (item: INavbarItem) => {
+    if (route.path === '/') {
+      return appStore.activeSection === item.name;
+    }
     if (Array.isArray(item.activedPath)) {
       return item.activedPath.includes(route.path);
     }

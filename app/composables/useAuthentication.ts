@@ -4,6 +4,7 @@ import { loginApi, registerApi } from '../utils/apiCalling'
 export function useAuthentication() {
   const loading = ref(false)
   const userId = ref<string | null>(null)
+  const { setActiveSection } = useAppStore();
 
   // Form state
   const activeForm = ref<'login' | 'register'>('login')
@@ -72,9 +73,9 @@ export function useAuthentication() {
                 useCookie('token').value = token;
               }
             }
-            setTimeout(() => {
-              window.location.href = '/';
-            }, 1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            setActiveSection('Dashboard');
+            window.location.href = '/admin/dashboard';
           } else {
             notificationHelper.error(response.message || 'Login failed.')
             userId.value = null

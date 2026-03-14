@@ -1,13 +1,6 @@
 <template>
-    <div>
-        Contact us at
-    </div>
+  <ContactContent />
 </template>
 
 <script setup lang="ts">
-
 </script>
-
-<style scoped>
-
-</style>

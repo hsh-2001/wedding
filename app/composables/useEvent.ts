@@ -43,7 +43,6 @@ export function useEvent() {
     try {
       const result = await upsertEventApi(eventModel.value)
       notificationHelper.success('Event saved successfully')
-      console.log('Upsert result:', result)
     } catch (error) {
       console.error('Error saving event:', error)
       notificationHelper.error('Failed to save event')

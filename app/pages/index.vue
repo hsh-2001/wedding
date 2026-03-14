@@ -1,13 +1,6 @@
 <template>
-    <div class="">
-        {{ $t('Home Page') }}
-    </div>
+  <HomeContent />
 </template>
 
-<script setup>
-
+<script setup lang="ts">
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -1,13 +1,6 @@
 <template>
-  <div>
-    {{ $t('Coming soon...') }}
-  </div>
+  <AboutContent />
 </template>
 
 <script setup lang="ts">
-
 </script>
-
-<style scoped>
-
-</style>

@@ -14,7 +14,7 @@
             <el-form-item :label="$t('Password')" prop="password">
               <el-input v-model="form.password" type="password" :placeholder="$t('Enter your password')" size="large" show-password />
             </el-form-item>
-            <el-button type="primary" class="w-full mt-4" @click="onLogin" size="large">Login</el-button>
+            <el-button :loading="loading" type="primary" class="w-full mt-4" @click="onLogin" size="large">Login</el-button>
           </el-form>
         </div>
         <div v-else key="register">
@@ -31,7 +31,7 @@
             <el-form-item :label="$t('Confirm Password')" prop="confirm_password">
               <el-input v-model="registerForm.confirm_password" type="password" :placeholder="$t('Confirm your password')" size="large" show-password />
             </el-form-item>
-            <el-button type="primary" class="w-full mt-4" @click="onRegister" size="large">Register</el-button>
+            <el-button :loading="loading" type="primary" class="w-full mt-4" @click="onRegister" size="large">Register</el-button>
           </el-form>
         </div>
       </transition>
