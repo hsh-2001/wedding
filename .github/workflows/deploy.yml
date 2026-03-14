@@ -24,8 +24,6 @@ jobs:
 
       - name: Static Build
         run: npx nuxi generate
-        env:
-          NUXT_APP_BASE_URL: /hsh-2001/wedding 
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -33,14 +31,9 @@ jobs:
           path: .output/public
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
 
       - name: Show deployed domain
         run: |
           echo "Deployment complete!"
-          echo "Your site is live at: https://hsh-2001.github.io/wedding/"
+          echo "Your site is live at: https://hsh-2001.github.io/"
