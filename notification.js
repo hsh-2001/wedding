@@ -1,0 +1,1 @@
+// For alert on building and deploying the site
