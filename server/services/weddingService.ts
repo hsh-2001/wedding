@@ -1,4 +1,4 @@
-import { ApiResponse } from '../../shared/types/baseApi';
+import { ApiResponse } from '~/types/baseApi';
 import type { IWeddingEventResponse, IWeddingUpsertInput, IWeddingUpsertResult } from '../../shared/types/wedding';
 import connection from '../config/connection';
 

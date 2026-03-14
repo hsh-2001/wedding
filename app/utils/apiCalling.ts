@@ -1,6 +1,6 @@
 import { api } from './api';
-import type { ApiResponse } from '../../shared/types/baseApi';
-import { getBaseResponse } from '../../shared/types/baseApi';
+import type { ApiResponse } from '~/types/baseApi';
+import { getBaseResponse } from '~/types/baseApi';
 import type { WeddingEventList } from '~/models/event';
 import type { IWeddingEventResponse } from '~/../shared/types/wedding';
 import { GuestResponse, type IUpsertGuestRequest } from '~/../shared/types/guest';

@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { findUserByUsernameOrEmail, createUser } from '../repositories/userRepository';
 import { getPgPool } from '../config/connection';
-import { ApiResponse } from '../../shared/types/baseApi';
+import { ApiResponse } from '~/types/baseApi';
 import tokenService from './tokenService';
 
 export async function registerUser(username: string, email: string, password: string) {
@@ -17,7 +17,7 @@ export async function registerUser(username: string, email: string, password: st
   const hashedPassword = await bcrypt.hash(password, 10);
   await createUser(username, email, hashedPassword);
 
-  return ApiResponse.success('Registration successful.');
+  return ApiResponse.success('Registration successful.', null);
 }
 
 export async function loginUser(username: string, password: string) {
