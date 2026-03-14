@@ -16,7 +16,7 @@ jobs:
       - run: corepack enable
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 25
           cache: 'npm'
 
       - name: Install dependencies
@@ -41,3 +41,12 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+
+      - name: Show deployed domain
+        run: |
+          echo "Deployment complete!"
+          echo "Your site is live at: https://hsh-2001.github.io/"
+          echo "Or via your custom domain: https://hsh-2001.github.io/wedding/"
+          if [ -f .output/public/CNAME ]; then
+            echo "Custom domain set: $(cat .output/public/CNAME)"
+          fi
