@@ -3,6 +3,7 @@ DROP FUNCTION IF EXISTS get_wedding_event(INT);
 CREATE FUNCTION get_wedding_event(p_company_id INT)
 RETURNS TABLE (
     id UUID,
+    event_id UUID,
     company_id INT,
     bride_name VARCHAR(150),
     groom_name VARCHAR(150),
@@ -22,21 +23,21 @@ BEGIN
     RETURN QUERY
     SELECT
         w.id,
-        w.company_id,
+        w.event_id,
+        e.company_id,
         w.bride_name,
         w.groom_name,
         w.wedding_date,
         w.venue_name,
         w.venue_address,
         w.description,
-        we.event_name,
-        we.event_date,
-        we.location,
+        e.event_name,
+        e.created_at AS event_date,
+        NULL::TEXT AS location,
         w.created_at,
         w.updated_at
     FROM weddings w
-    LEFT JOIN wedding_events we
-    ON w.id = we.wedding_id
+    LEFT JOIN events e ON w.event_id = e.id
     WHERE w.company_id = p_company_id;
 END;
 $$;

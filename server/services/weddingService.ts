@@ -41,22 +41,9 @@ const getWeddingEventByCompanyId = async (company_id: number): Promise<ApiRespon
 const getWeddingEventById = async (id: string): Promise<ApiResponse<IWeddingEventResponse | null>> => {
   try {
     const sql = `
-      SELECT 
-        w.id,
-        w.company_id,
-        w.bride_name,
-        w.groom_name,
-        w.wedding_date,
-        w.venue_name,
-        w.venue_address,
-        w.description,
-        we.event_name,
-        we.event_date,
-        we.location,
-        w.created_at,
-        w.updated_at
+      SELECT w.*, u.username AS owner_username, u.email AS owner_email
       FROM weddings w
-      LEFT JOIN wedding_events we ON w.id = we.wedding_id
+      JOIN users u ON w.owner_id = u.id
       WHERE w.id = $1
       LIMIT 1
     `;

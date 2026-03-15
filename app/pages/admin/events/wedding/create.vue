@@ -8,33 +8,61 @@
 
         <div class="mt-8 bg-(--color-surface) rounded-xl shadow-sm border border-(--color-border) overflow-hidden animate-fade-in">
             <el-form 
-                :model="eventModel" 
+                :model="weddingModel" 
                 label-position="top" 
                 class="p-6 sm:p-8"
                 size="default"
             >
+                <div class="py-2 w-full space-y-2">
+                    <div>
+                        <h3 class="text-lg font-bold">{{ $t('Event settings') }}</h3>
+                    </div>
+                    <el-select :disabled="eventList.length <= 1" v-model="weddingModel.event_id" :placeholder="$t('Select event type')">
+                        <el-option 
+                            v-for="event in eventList" 
+                            :key="event.id" 
+                            :label="event.event_name" 
+                            :value="String(event.id)"
+                        />
+                    </el-select>
+                    <div class="flex w-full gap-2">
+                        <el-form-item required :label="$t('Event owner username')" class="mb-0 w-full">
+                            <el-input 
+                                v-model="weddingModel.owner_username" 
+                                :placeholder="$t('Event owner username')" 
+                                class="w-full"
+                            />
+                        </el-form-item>
+                       <el-form-item required :label="$t('Event owner password')" class="mb-0 w-full">
+                            <el-input 
+                                v-model="weddingModel.owner_password" 
+                                :placeholder="$t('Event owner password')" 
+                                class="w-full   "
+                                type="password"
+                            />
+                        </el-form-item>
+                    </div>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <!-- Couple Information Section -->
                     <div class="col-span-1 md:col-span-2">
                         <h3 class="text-lg font-bold text-(--text-main) flex items-center gap-2">
                             <Heart class="w-5 h-5 text-(--color-primary)" />
-                            Couple Information
+                            {{ $t('Couple Information') }}
                         </h3>
                     </div>
 
                     <el-form-item :label="$t('Bride Name')" class="col-span-1">
-                        <el-input v-model="eventModel.bride_name" :placeholder="$t('Enter bride name')">
+                        <el-input v-model="weddingModel.bride_name" :placeholder="$t('Enter bride name')">
                             <template #prefix><User class="w-4 h-4 text-(--text-light)" /></template>
                         </el-input>
                     </el-form-item>
 
                     <el-form-item :label="$t('Groom Name')" class="col-span-1">
-                        <el-input v-model="eventModel.groom_name" :placeholder="$t('Enter groom name')">
+                        <el-input v-model="weddingModel.groom_name" :placeholder="$t('Enter groom name')">
                             <template #prefix><User class="w-4 h-4 text-(--text-light)" /></template>
                         </el-input>
                     </el-form-item>
 
-                    <!-- Event Details Section -->
                     <div class="col-span-1 md:col-span-2 mt-4">
                         <h3 class="text-lg font-bold text-(--text-main) flex items-center gap-2">
                             <CalendarIcon class="w-5 h-5 text-(--color-primary)" />
@@ -44,29 +72,28 @@
 
                     <el-form-item :label="$t('Wedding Date')" class="col-span-1">
                         <el-date-picker 
-                            v-model="eventModel.wedding_date" 
+                            v-model="weddingModel.wedding_date" 
                             type="date" 
                             :placeholder="$t('Select wedding date')"
                             value-format="YYYY-MM-DD" 
-                            class="!w-full"
                         />
                     </el-form-item>
 
                     <el-form-item :label="$t('Venue Name')" class="col-span-1">
-                        <el-input v-model="eventModel.venue_name" :placeholder="$t('Enter venue name')">
+                        <el-input v-model="weddingModel.venue_name" :placeholder="$t('Enter venue name')">
                             <template #prefix><Building2 class="w-4 h-4 text-(--text-light)" /></template>
                         </el-input>
                     </el-form-item>
 
                     <el-form-item :label="$t('Venue Address')" class="col-span-1 md:col-span-2">
-                        <el-input v-model="eventModel.venue_address" :placeholder="$t('Enter venue address')">
+                        <el-input v-model="weddingModel.venue_address" :placeholder="$t('Enter venue address')">
                             <template #prefix><MapPin class="w-4 h-4 text-(--text-light)" /></template>
                         </el-input>
                     </el-form-item>
 
                     <el-form-item :label="$t('Description')" class="col-span-1 md:col-span-2">
                         <el-input 
-                            v-model="eventModel.description" 
+                            v-model="weddingModel.description" 
                             type="textarea" 
                             :rows="4"
                             :placeholder="$t('Enter event description')" 
@@ -107,7 +134,18 @@ import {
     Building2 
 } from 'lucide-vue-next';
 
-const { eventModel, handleUpsertEvent, loading } = useEvent();
+const {
+    weddingModel,
+    handleUpsertEvent,
+    loading,
+    eventList,
+    getEventByCompanyId,
+ } = useEvent();
+
+ onMounted(async () => {
+        await getEventByCompanyId();
+        weddingModel.value.event_id = eventList.value.length > 0 ? String(eventList.value[0]?.id) : '';
+ });
 
 </script>
 

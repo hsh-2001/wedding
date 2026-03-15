@@ -1,9 +1,10 @@
+-- drop table if exists users;
 CREATE TABLE users (
 	id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 	email TEXT NOT NULL UNIQUE,
 	username TEXT NOT NULL UNIQUE,
 	password_hash TEXT NOT NULL,
-	shop_id SERIAL,
+	role_id INTEGER NOT NULL,
 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-)
+);

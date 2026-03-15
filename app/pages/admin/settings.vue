@@ -7,7 +7,7 @@
       :icon="Building2"
     />
 
-    <el-card shadow="sm" class="rounded-xl border-(--color-border) bg-(--color-surface)">
+    <el-card class="rounded-xl border-(--color-border) bg-(--color-surface)">
       <template #header>
         <div class="flex items-center gap-2">
           <Building class="w-5 h-5 text-blue-500" />
@@ -44,7 +44,7 @@
     </el-card>
 
     <!-- Branding -->
-    <el-card shadow="sm" class="rounded-xl border-(--color-border) bg-(--color-surface)">
+    <el-card class="rounded-xl border-(--color-border) bg-(--color-surface)">
       <template #header>
         <div class="flex items-center gap-2">
           <Palette class="w-5 h-5 text-pink-500" />
@@ -85,7 +85,7 @@
     </el-card>
 
     <!-- Notification Settings -->
-    <el-card shadow="sm" class="rounded-xl border-(--color-border) bg-(--color-surface)">
+    <el-card class="rounded-xl border-(--color-border) bg-(--color-surface)">
       <template #header>
         <div class="flex items-center gap-2">
           <Bell class="w-5 h-5 text-amber-500" />
@@ -107,12 +107,12 @@
     </el-card>
 
     <div class="flex justify-end gap-2 pt-4">
-      <el-button @click="logout" class="!h-11">
+      <el-button @click="logout">
         <LogOut class="w-4 h-4 mr-2" />
-        Logout
+        {{ $t('Logout') }}
       </el-button>
-      <el-button type="primary" @click="saveSettings" class="!h-11 !px-8 font-bold">
-        Save Settings
+      <el-button type="primary" @click="saveSettings" class="font-bold">
+        {{ $t('Save Settings') }}
       </el-button>
     </div>
 

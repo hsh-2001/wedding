@@ -1,6 +1,6 @@
 <template>
     <div class="w-full max-w-7xl mx-auto sm:p-6 lg:p-8">
-        <PageHeader :title="`${eventModel.bride_name} & ${eventModel.groom_name}`"
+        <PageHeader :title="`${weddingModel.bride_name} & ${weddingModel.groom_name}`"
             :description="$t('View and manage complete details for this wedding event.')" :icon="Heart">
             <template #actions>
                 <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
@@ -31,7 +31,7 @@
                 {{ $t('Invitation List') }}
             </button>
         </div>
-    <EventWeddingDetail v-if="!isInvitationsTab" :eventModel="eventModel" />
+    <EventWeddingDetail v-if="!isInvitationsTab" :eventModel="weddingModel" />
     <EventInvatationList v-else />
     </div>
 </template>
@@ -52,7 +52,7 @@ import {
 } from 'lucide-vue-next';
 
 const route = useRoute();
-const { eventModel, getWeddingEventById, handleUpsertEvent, loading } = useEvent();
+const { weddingModel, getWeddingEventById, handleUpsertEvent, loading } = useEvent();
 
 const formatDate = (dateString: string | Date) => {
     if (!dateString) return '';

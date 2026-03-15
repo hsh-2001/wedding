@@ -1,5 +1,8 @@
 export interface IWeddingUpsertInput {
   id?: string;
+  event_id: string;
+  owner_username: string;
+  owner_password: string;
   company_id: number;
   bride_name: string;
   groom_name: string;

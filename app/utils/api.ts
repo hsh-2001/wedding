@@ -20,9 +20,6 @@ api.interceptors.response.use(
 api.interceptors.request.use(
     (config) => {
         let token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
-        if (!token && typeof window !== 'undefined') {
-            token = localStorage.getItem('token') || sessionStorage.getItem('token') || '';
-        }
         if (token) {
             config.headers['authorization'] = `Bearer ${token}`;
             config.headers['Authorization'] = `Bearer ${token}`;

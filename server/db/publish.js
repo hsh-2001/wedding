@@ -13,6 +13,7 @@ const pool = new Pool({
 
 const tableDir = path.join(process.cwd(), 'server/db/tables');
 const functionDir = path.join(process.cwd(), 'server/db/functions');
+const initDir = path.join(process.cwd(), 'server/db/initData');
 
 // ANSI colors
 const color = {
@@ -73,12 +74,34 @@ const publishFunctions = async () => {
   }
 };
 
+const initDefaultData = async () => {
+  const files = fs.readdirSync(initDir);
+
+  console.log(`${color.cyan}Initializing Default Data...${color.reset}`);
+
+  for (const file of files) {
+    if (!file.endsWith('.sql')) continue;
+
+    const filePath = path.join(initDir, file);
+    const sql = fs.readFileSync(filePath, 'utf-8');
+
+    try {
+      await pool.query(sql);
+      console.log(`${color.green}✓ Data initialized:${color.reset} ${file}`);
+    } catch (error) {
+      console.error(`${color.red}✗ Failed:${color.reset} ${file}`);
+      console.error(`${color.red}${error.message}${color.reset}`);
+    }
+  }
+};
+
 const publishDatabase = async () => {
   try {
     console.log(`${color.cyan}Starting database publish...\n${color.reset}`);
 
     await publishTables();
     await publishFunctions();
+    await initDefaultData();
 
     console.log(`\n${color.green}✓ Database published successfully!${color.reset}`);
   } catch (error) {

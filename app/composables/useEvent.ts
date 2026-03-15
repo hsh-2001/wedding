@@ -3,6 +3,7 @@ import { upsertEventApi, getWeddingEventApi, getWeddingEventByIdApi } from '../u
 import notificationHelper from '../utils/notificationHelper'
 import { WeddingEventList } from '~/models/event'
 import type { IWeddingUpsertInput } from '~/../shared/types/wedding'
+import type { IEvent } from '~/types/event'
 
 export function useEvent() {
   const loading = ref(false)
@@ -28,8 +29,11 @@ export function useEvent() {
     ]
   }
 
-  const eventModel = ref<IWeddingUpsertInput>({
+  const weddingModel = ref<IWeddingUpsertInput>({
     company_id: 1,
+    event_id: '',
+    owner_username: '',
+    owner_password: '',
     bride_name: '',
     groom_name: '',
     wedding_date: '',
@@ -41,7 +45,7 @@ export function useEvent() {
   const handleUpsertEvent = async () => {
     loading.value = true
     try {
-      const result = await upsertEventApi(eventModel.value)
+      const result = await upsertEventApi(weddingModel.value)
       notificationHelper.success('Event saved successfully')
     } catch (error) {
       console.error('Error saving event:', error)
@@ -50,6 +54,21 @@ export function useEvent() {
       loading.value = false
     }
   }
+
+  const eventList = ref<IEvent[]>([])
+  const getEventByCompanyId = async () => {
+    loading.value = true
+    try {
+      const result = await getEventByCompanyIdApi();
+      if (result.isSuccess && result.data) {
+        eventList.value = result.data;
+      }
+    } catch (error) {
+      console.error('Error fetching event by company ID:', error);
+    } finally {
+      loading.value = false;
+    }
+  };
 
   const weddingEventList = ref<WeddingEventList[]>([])
   const getWeddingEvent = async () => {
@@ -71,8 +90,11 @@ export function useEvent() {
     try {
       const result = await getWeddingEventByIdApi(id);
       if (result.isSuccess && result.data) {
-        eventModel.value = {
+        weddingModel.value = {
           id: result.data.id,
+          event_id:  '',
+          owner_username: '',
+          owner_password: '',
           company_id: result.data.company_id,
           bride_name: result.data.bride_name || '',
           groom_name: result.data.groom_name || '',
@@ -95,9 +117,11 @@ export function useEvent() {
     form,
     rules,
     handleUpsertEvent,
-    eventModel,
+    weddingModel,
     weddingEventList,
     getWeddingEvent,
     getWeddingEventById,
+    getEventByCompanyId,
+    eventList,
   }
 }

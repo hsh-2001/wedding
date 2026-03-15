@@ -58,15 +58,17 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { Calendar } from "@element-plus/icons-vue";
-import { HeartHandshake, MapPin, ArrowRight } from "lucide-vue-next";
+import { MapPin, ArrowRight } from "lucide-vue-next";
 import { useEvent } from "~/composables/useEvent";
 
 const {
     getWeddingEvent,
     weddingEventList,
+    getEventByCompanyId,
 } = useEvent();
 
 onMounted(() => {
+    getEventByCompanyId();
     getWeddingEvent();
 });
 

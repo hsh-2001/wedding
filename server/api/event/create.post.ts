@@ -1,7 +1,11 @@
 import { readBody } from 'h3';
-import weddingService from '~~/server/services/weddingService';
+import eventService from '~~/server/services/eventService';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  return await weddingService.upsertWedding(body);
+  const user = await event.context.user;
+  if (!user) {
+    throw createError({ statusCode: 401, message: 'Unauthorized' });
+  }
+  return await eventService.upsertWeddingEvent({...body, company_id: user.company_id ?? 0});
 });

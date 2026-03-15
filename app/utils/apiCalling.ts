@@ -20,6 +20,11 @@ export async function upsertEventApi(data: any): Promise<ApiResponse<any>> {
   return getBaseResponse(result.data);
 }
 
+export async function getEventByCompanyIdApi(): Promise<ApiResponse<any>> {
+  const result = await api.get('/event');
+  return getBaseResponse(result.data);
+}
+
 export async function getWeddingEventApi(): Promise<ApiResponse<WeddingEventList[] | null>> {
   const result = await api.get('/event/wedding');
   return getBaseResponse(result.data);

@@ -1,0 +1,3 @@
+INSERT INTO events (company_id, lang_code, event_name, description) VALUES
+(0, 'en', 'Wedding', 'A wedding is a ceremony where two people are united in marriage. It is a celebration of love and commitment, often involving various traditions and rituals. Weddings can be simple or elaborate, depending on cultural and personal preferences. They typically include the exchange of vows, rings, and a reception to celebrate the union with family and friends.')
+ON CONFLICT (event_name, company_id) DO NOTHING;
