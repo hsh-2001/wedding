@@ -1,5 +1,7 @@
+
 import { ref } from 'vue'
 import { loginApi, registerApi } from '../utils/apiCalling'
+import { navigateTo } from 'nuxt/app'
 
 export function useAuthentication() {
   const loading = ref(false)
@@ -75,7 +77,8 @@ export function useAuthentication() {
             }
             await new Promise(resolve => setTimeout(resolve, 1000));
             setActiveSection('Dashboard');
-            window.location.href = '/admin/dashboard';
+            window.location.reload();
+            await navigateTo('/admin/dashboard');
           } else {
             notificationHelper.error(response.message || 'Login failed.')
             userId.value = null

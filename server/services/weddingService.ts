@@ -65,7 +65,7 @@ const getWeddingEventById = async (id: string): Promise<ApiResponse<IWeddingEven
     if (!result || result.length === 0) {
       return ApiResponse.error('Failed to retrieve wedding event', null);
     }
-    return ApiResponse.success('Wedding event retrieved successfully', result[0]);
+    return ApiResponse.success('Wedding event retrieved successfully', result[0] ?? null);
   } catch (error: any) {
     return ApiResponse.error('Failed to retrieve wedding event', error.message);
   }

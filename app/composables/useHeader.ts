@@ -1,5 +1,5 @@
 import { useNuxtApp } from '#app';
-import { computed } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import type { INavbarItem } from '~/models/navbar';
 import { ChartGantt, Settings } from 'lucide-vue-next';
 
@@ -19,15 +19,32 @@ export default function useHeader() {
     i18n.setLocale(lang);
   }
 
-  const isAuthenticated = computed(() => {
-    if (typeof window === 'undefined') {
-      return false;
-    }
-    const token = useCookie('token').value;     
-    return !!token;
-  });
+  const token = useCookie('token', { watch: false });
+  const isAuthenticated = computed(() => !!token.value);
 
   const route = useRoute();
+
+  function syncActiveSection() {
+    const admin = adminRoutes.value.find(item => {
+      if (Array.isArray(item.activedPath)) {
+        return item.activedPath.includes(route.path);
+      }
+      return item.activedPath === route.path;
+    });
+    if (admin) {
+      appStore.setActiveSection(admin.name);
+      return;
+    }
+    const guest = guestRoutes.value.find(item => item.activedPath === route.path);
+    if (guest) {
+      appStore.setActiveSection(guest.name);
+      return;
+    }
+    appStore.setActiveSection('home');
+  }
+
+  onMounted(syncActiveSection);
+  watch(() => route.path, syncActiveSection);
 
   const guestRoutes = computed<INavbarItem[]>(() => {
     return [
@@ -63,13 +80,10 @@ export default function useHeader() {
 
 
   const isActivePath = computed(() => (item: INavbarItem) => {
-    if (route.path === '/') {
-      return appStore.activeSection === item.name;
-    }
     if (Array.isArray(item.activedPath)) {
       return item.activedPath.includes(route.path);
     }
-    return route.path === item.activedPath;
+    return item.activedPath === route.path;
   });
 
   return {

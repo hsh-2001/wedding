@@ -102,8 +102,9 @@
 </template>
 
 <script setup lang="ts">
+
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { navigateTo } from 'nuxt/app'
 import useHeader from '../composables/useHeader'
 
 let $colorMode
@@ -113,7 +114,6 @@ try {
   $colorMode = { preference: ref('light') }
 }
 
-const route = useRoute()
 const { t, currentLocale, changeLanguage, isAuthenticated,
   guestRoutes,
   adminRoutes,
