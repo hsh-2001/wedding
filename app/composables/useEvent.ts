@@ -98,7 +98,7 @@ export function useEvent() {
           company_id: result.data.company_id,
           bride_name: result.data.bride_name || '',
           groom_name: result.data.groom_name || '',
-          wedding_date: result.data.wedding_date ? new Date(result.data.wedding_date).toISOString().split('T')[0] : '',
+          wedding_date: result.data.wedding_date ? new Date(result.data.wedding_date).toISOString().split('T')[0] as string : '',
           venue_name: result.data.venue_name || '',
           venue_address: result.data.venue_address || '',
           description: result.data.description || ''

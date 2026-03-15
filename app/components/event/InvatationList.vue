@@ -28,11 +28,15 @@
 
                     <el-table-column label="Invitation Code" prop="invitation_code" />
 
-                    <el-table-column label="Actions" width="80">
-                        <template #default="scope">
-                            <div class="flex gap-2">
-                                <el-button size="small" type="primary">
+                    <el-table-column label="Actions">
+                        <template #default="{ row }">
+                            <div class="flex">
+                                <el-button size="small" type="info">
                                     Edit
+                                </el-button>
+                                <el-button size="small" type="primary" @click="handleShareEvent(row)">
+                                     <share class="w-4 h-4 mr-1" />
+                                     <span>{{ $t('Invite') }}</span>
                                 </el-button>
                             </div>
                         </template>
@@ -42,10 +46,18 @@
             </div>
         </div>
     </div>
-    <event-add-guest-dialog v-model:visible="dialogVisible" v-model:form-model="upsertGuestModel"
-        @submit="upsertGuest()" />
+    <event-add-guest-dialog
+        v-model:visible="dialogVisible"
+        v-model:form-model="upsertGuestModel"
+        @submit="upsertGuest()"
+    />
 </template>
 <script setup lang="ts">
+import { Share } from 'lucide-vue-next';
+
+const props = defineProps<{
+    weddingData: any;
+}>();
 
 const route = useRoute();
 const {
@@ -54,6 +66,7 @@ const {
     getGuestsByWeddingId,
     guestList,
     dialogVisible,
+    handleShareEvent,
 } = useGuest();
 
 const openAddGuestDialog = () => {

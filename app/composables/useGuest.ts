@@ -1,5 +1,6 @@
 import { upsertGuestApi } from "~/utils/apiCalling";
-import { GuestResponse, type IUpsertGuestRequest } from "~~/shared/types/guest";
+import { GuestResponse, type IGuest, type IUpsertGuestRequest } from "~~/shared/types/guest";
+import LZString from "lz-string";
 
 export default function useGuest() {
     const route = useRoute();
@@ -56,11 +57,33 @@ export default function useGuest() {
         }
     }
 
+    const handleShareEvent = (data: IGuest) => {
+        const guest = {
+            n: data.name,
+            t: data.title,
+            p: data.phone,
+            e: data.email,
+            c: data.invitation_code,
+            r: data.remark,
+        }
+        const compressedData = LZString.compressToEncodedURIComponent(JSON.stringify(guest));
+        const idCompress = LZString.compressToEncodedURIComponent(weddingId);
+        navigator.share({
+            title: 'You are invited to our wedding!',
+            url: `${window.location.origin}/shares/${idCompress}?v=${compressedData}`,
+        }).then(() => {
+            console.log('Event details shared successfully');
+        }).catch((error) => {
+            console.error('Error sharing event details:', error);
+        });
+    }
+
     return {
         upsertGuestModel,
         upsertGuest,
         getGuestsByWeddingId,
         guestList,
         dialogVisible,
+        handleShareEvent,
     };
 };

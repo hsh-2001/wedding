@@ -1,9 +1,13 @@
 
 
 export default defineNuxtRouteMiddleware((to, from) => {
+  if (to.path.startsWith('/shares')) {
+    return;
+  };
+
   const allowGuestPaths = ['/admin/login', '/service', '/', '/contact', '/about'];
   let token = null;
-  if (process.server) {
+  if (import.meta.server) {
     const cookieHeader = useRequestHeaders()['cookie'] || '';
     token = cookieHeader.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
   } else {

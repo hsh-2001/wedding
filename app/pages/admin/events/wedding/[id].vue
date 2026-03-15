@@ -32,7 +32,7 @@
             </button>
         </div>
     <EventWeddingDetail v-if="!isInvitationsTab" :eventModel="weddingModel" />
-    <EventInvatationList v-else />
+    <EventInvatationList v-else :wedding-data="weddingModel" />
     </div>
 </template>
 
