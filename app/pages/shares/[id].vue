@@ -14,13 +14,18 @@ definePageMeta({
 
 const route = useRoute()
 const weddingId = route.params.id as string
-const dataQuery = route.query.v as string
 
-const compressedData = dataQuery || ''
-const rawData = LZString.decompressFromEncodedURIComponent(compressedData) || '{}'
-const data = JSON.parse(rawData)
 
-const deCompressId = LZString.decompressFromEncodedURIComponent(weddingId) || ''
+// Fake wedding data for SEO meta (replace with API call when ready)
+const data = {
+  bride: { name: 'Sophea' },
+  groom: { name: 'Senghong' },
+  date: '2026-03-21T15:00:00Z',
+  isWedding: true,
+  coverImage: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622',
+  venue: 'Phnom Penh Hotel',
+  description: 'Join us for a beautiful wedding celebration in Phnom Penh!'
+}
 
 const bride = data.bride?.name || 'Bride'
 const groom = data.groom?.name || 'Groom'
@@ -40,10 +45,12 @@ const currentUrl = `https://hsh-2001.github.io/wedding/${route.fullPath}`
 
 const defaultOgImage = 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622'
 
+
 useSeoMeta({
   title: pageTitle,
   description: pageDescription,
 
+  // Open Graph (Facebook, Telegram, LinkedIn, etc.)
   ogTitle: pageTitle,
   ogDescription: pageDescription,
   ogType: 'website',
@@ -52,27 +59,32 @@ useSeoMeta({
   ogImageWidth: 1200,
   ogImageHeight: 630,
 
+  // Twitter
   twitterCard: 'summary_large_image',
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
   twitterImage: data.coverImage || defaultOgImage,
 
-  // Optional extras
-  // themeColor: '#d4a373',                    // example wedding color
-  // msapplicationTileColor: '#ffffff',
+  // Extra meta for WhatsApp, Viber, etc.
+  'itemprop': pageTitle,
+  'name': pageTitle,
+  'image': data.coverImage || defaultOgImage,
 })
 
-// Optional: Canonical link (helps avoid duplicate content issues)
 useHead({
   link: [
     { rel: 'canonical', href: currentUrl }
   ]
 })
 
-// Keep your debug log
-onMounted(() => {
-  console.log('Received data:', data, 'Decompressed ID:', deCompressId)
-})
+// For client-side only: decompress query data if present
+const dataQuery = route.query.v as string
+if (process.client && dataQuery) {
+  const compressedData = dataQuery || ''
+  const rawData = LZString.decompressFromEncodedURIComponent(compressedData) || '{}'
+  const clientData = JSON.parse(rawData)
+  // You can use clientData for client-only enhancements
+}
 </script>
 
 <style scoped>
