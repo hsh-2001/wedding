@@ -59,16 +59,12 @@ useSeoMeta({
   ogImageWidth: 1200,
   ogImageHeight: 630,
 
-  // Twitter
   twitterCard: 'summary_large_image',
   twitterTitle: pageTitle,
   twitterDescription: pageDescription,
   twitterImage: data.coverImage || defaultOgImage,
 
-  // Extra meta for WhatsApp, Viber, etc.
-  'itemprop': pageTitle,
-  'name': pageTitle,
-  'image': data.coverImage || defaultOgImage,
+//   Telegram 
 })
 
 useHead({

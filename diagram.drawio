@@ -1,0 +1,32 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Wedding Guest Table Relationships">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- WEDDINGS -->
+        <mxCell id="weddings" value="WEDDINGS\n- id (PK)\n- event_id\n- owner_id\n- company_id\n- lang_code\n- bride_name\n- groom_name\n- wedding_date\n- venue_name\n- venue_address\n- description\n- created_at\n- updated_at" style="shape=swimlane;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#B7B7B7;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="200" height="320" as="geometry" />
+        </mxCell>
+        <!-- GUEST_GROUPS -->
+        <mxCell id="guest_groups" value="GUEST_GROUPS\n- id (PK)\n- wedding_id (FK)\n- group_name" style="shape=swimlane;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#B7B7B7;" vertex="1" parent="1">
+          <mxGeometry x="320" y="60" width="180" height="120" as="geometry" />
+        </mxCell>
+        <!-- GUESTS -->
+        <mxCell id="guests" value="GUESTS\n- id (PK)\n- wedding_id (FK)\n- group_id (FK)\n- name\n- title\n- phone\n- email\n- invitation_code\n- remark\n- created_at\n- updated_at" style="shape=swimlane;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#B7B7B7;" vertex="1" parent="1">
+          <mxGeometry x="320" y="220" width="220" height="260" as="geometry" />
+        </mxCell>
+        <!-- Relationships -->
+        <mxCell id="rel1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#888;" edge="1" parent="1" source="weddings" target="guest_groups">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#888;" edge="1" parent="1" source="weddings" target="guests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#888;" edge="1" parent="1" source="guest_groups" target="guests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

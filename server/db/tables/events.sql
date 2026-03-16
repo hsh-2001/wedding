@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS events;
+-- DROP TABLE IF EXISTS events;
 CREATE TABLE events (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     company_id SERIAL NOT NULL,
@@ -9,5 +9,4 @@ CREATE TABLE events (
     updated_at TIMESTAMP DEFAULT NOW(),
 
     UNIQUE (event_name, company_id)
-
 );
