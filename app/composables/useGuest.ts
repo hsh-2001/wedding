@@ -14,6 +14,7 @@ export default function useGuest() {
         phone: '',
         email: '',
         invitation_code: '',
+        is_invited: false,
         remark: '',
     });
 
@@ -46,9 +47,10 @@ export default function useGuest() {
 
 
     const guestList = ref<GuestResponse[]>([]);
-    const getGuestsByWeddingId = async (weddingId: string, limit = 25, offset = 0) => {
+    const searchValue = ref('');
+    const getGuestsByWeddingId = async (weddingId: string, limit = 10, page = 1) => {
         try {
-            const response = await getGuestsByWeddingIdApi(weddingId, limit, offset);
+            const response = await getGuestsByWeddingIdApi(weddingId, limit, page, searchValue.value);
             if (response.isSuccess) {
                 guestList.value = response.data?.map(guest => new GuestResponse(guest)) || [];
             }
@@ -57,7 +59,15 @@ export default function useGuest() {
         }
     }
 
-    const handleShareEvent = (data: IGuest) => {
+    const onPageChange = (currentPage: number, pageSize: number) => {
+        getGuestsByWeddingId(weddingId, 10, currentPage);
+    }
+
+    const onSearch = () => {
+        getGuestsByWeddingId(weddingId, 10, 1);
+    }
+
+    const buildInvitationShareData = (data: IGuest) => {
         const guest = {
             n: data.name,
             t: data.title,
@@ -68,15 +78,39 @@ export default function useGuest() {
         }
         const compressedData = LZString.compressToEncodedURIComponent(JSON.stringify(guest));
         const idCompress = LZString.compressToEncodedURIComponent(weddingId);
-        navigator.share({
+        return {
             title: 'You are invited to our wedding!',
+            text: `Dear ${data.name}, you are invited to our wedding! Please use the invitation code ${data.invitation_code} to RSVP and find more details.`,
             url: `${window.location.origin}/shares/${idCompress}?v=${compressedData}`,
-        }).then(() => {
-            console.log('Event details shared successfully');
+        };
+    }
+
+    const handleShareEvent = (data: IGuest) => {
+        const shareData = buildInvitationShareData(data);
+        navigator.share(shareData).then(() => {
         }).catch((error) => {
             console.error('Error sharing event details:', error);
         });
     }
+
+    const onCloseDialog = async () => {
+        await new Promise((resolve) => setTimeout(resolve, 300));
+        upsertGuestModel.value = {
+            wedding_id: weddingId || '',
+            group_id: '1',
+            name: '',
+            title: '',
+            phone: '',
+            email: '',
+            invitation_code: '',
+            remark: '',
+        };
+    };
+
+    const onClickEdit = (data: IUpsertGuestRequest) => {
+        dialogVisible.value = true;
+        upsertGuestModel.value = { ...data };
+    };
 
     return {
         upsertGuestModel,
@@ -84,6 +118,12 @@ export default function useGuest() {
         getGuestsByWeddingId,
         guestList,
         dialogVisible,
+        buildInvitationShareData,
         handleShareEvent,
+        onClickEdit,
+        onCloseDialog,
+        onPageChange,
+        onSearch,
+        searchValue,
     };
 };

@@ -22,8 +22,9 @@ const upsertGuest = async (guest: IUpsertGuestRequest) => {
   return await eventRepository.upsertGuest(guest);
 }
 
-const getGuestsByWeddingId = async (weddingId: string, limit = 25, offset = 0) => {
-  return await eventRepository.getGuestsByWeddingId(weddingId, limit, offset);
+const getGuestsByWeddingId = async (weddingId: string, limit = 10, page = 1, search = '') => {
+  const offset = (page - 1) * limit;
+  return await eventRepository.getGuestsByWeddingId(weddingId, limit, offset, search);
 }
 
 const getEventByCompanyId = async (companyId: number) => {

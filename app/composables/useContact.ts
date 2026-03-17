@@ -1,4 +1,6 @@
 export const useContact = () => {
+  const { t } = useI18n()
+
   const form = ref({
     firstName: '',
     lastName: '',
@@ -7,19 +9,19 @@ export const useContact = () => {
     message: ''
   })
 
-  const contactInfo = ref([
+  const contactInfo = computed(() => [
     {
-      title: 'Our Location',
+      title: t('Our Location'),
       value: '123 Wedding Lane, Phnom Penh, Cambodia',
       icon: 'location'
     },
     {
-      title: 'Phone Number',
+      title: t('Phone Number'),
       value: '+855 12 345 678',
       icon: 'phone'
     },
     {
-      title: 'Email Address',
+      title: t('Email Address'),
       value: 'hello@weddingstore.com',
       icon: 'email'
     }

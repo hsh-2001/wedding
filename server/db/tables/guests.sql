@@ -8,6 +8,7 @@ CREATE TABLE guests (
     phone VARCHAR(20),
     email VARCHAR(50),
     invitation_code VARCHAR(30),
+    is_invited BOOLEAN DEFAULT FALSE,
     remark TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),

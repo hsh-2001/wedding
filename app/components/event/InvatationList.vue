@@ -5,8 +5,8 @@
                 <el-form class="w-1/2 mt-2">
                     <el-form-item>
                         <div class="flex items-end gap-2 w-full">
-                            <el-input placeholder="Enter guest name or phone number" prefix-icon="Search" />
-                            <el-button type="primary" class="mt-2">
+                            <el-input v-model="searchValue" :placeholder="$t('Enter guest name or phone number')" prefix-icon="Search" />
+                            <el-button type="primary" class="mt-2" @click="onSearch">
                                 {{ $t('Search') }}
                             </el-button>
                         </div>
@@ -19,20 +19,27 @@
 
             <div class="w-full overflow-auto rounded-md">
                 <el-table border :data="guestList" class="w-full rounded-lg min-w-200 overflow-hidden">
-                    <el-table-column label="No." prop="row_number" width="100" />
-                    <el-table-column prop="name" label="Guest Name" />
+                    <el-table-column :label="$t('No.')" prop="row_number" width="100" />
+                    <el-table-column prop="name" :label="$t('Guest Name')" />
 
-                    <el-table-column prop="phone" label="Phone" width="150" />
+                    <el-table-column prop="phone" :label="$t('Phone')" width="150" />
 
-                    <el-table-column label="Remark" prop="remark" />
+                    <el-table-column :label="$t('Remark')" prop="remark" />
 
-                    <el-table-column label="Invitation Code" prop="invitation_code" />
+                    <el-table-column :label="$t('Invitation Code')" prop="invitation_code" />
+                    <el-table-column :label="$t('Is Invited')" prop="is_invited">
+                        <template #default="{ row }">
+                            <el-tag :type="row.is_invited ? 'success' : 'info'">
+                                {{ row.is_invited ? $t('Invited') : $t('Not Invited') }}
+                            </el-tag>
+                        </template>
+                    </el-table-column>
 
-                    <el-table-column label="Actions">
+                    <el-table-column :label="$t('Actions')" width="160">
                         <template #default="{ row }">
                             <div class="flex">
-                                <el-button size="small" type="info">
-                                    Edit
+                                <el-button size="small" type="info" @click="onClickEdit(row)">
+                                    {{ $t('Edit') }}
                                 </el-button>
                                 <el-button size="small" type="primary" @click="handleShareEvent(row)">
                                      <share class="w-4 h-4 mr-1" />
@@ -41,8 +48,15 @@
                             </div>
                         </template>
                     </el-table-column>
-
                 </el-table>
+                <div class="flex justify-end p-2">
+                    <el-pagination
+                        background
+                        layout="prev, pager, next" 
+                        :page-count="guestList[0]?.total_page || 0" 
+                        @change="onPageChange"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +64,8 @@
         v-model:visible="dialogVisible"
         v-model:form-model="upsertGuestModel"
         @submit="upsertGuest()"
+        :is-edit="!!upsertGuestModel.id"
+        @close="onCloseDialog"
     />
 </template>
 <script setup lang="ts">
@@ -67,7 +83,19 @@ const {
     guestList,
     dialogVisible,
     handleShareEvent,
+    onClickEdit,
+    onCloseDialog,
+    onPageChange,
+    searchValue,
+    onSearch,
 } = useGuest();
+
+watch(()=> searchValue.value, (newVal) => {
+    if (newVal === '') {
+        const weddingId = route.params.id as string
+        getGuestsByWeddingId(weddingId)
+    }
+});
 
 const openAddGuestDialog = () => {
     dialogVisible.value = true

@@ -2,12 +2,12 @@
   <footer class="w-full bg-(--color-surface) text-(--text-main) py-10 border-t border-(--color-border)">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-2">
       <div class="text-sm font-bold text-(--text-muted) text-center md:text-left">
-        &copy; 2026 Wedding Store. All rights reserved.
+        &copy; 2026 {{ $t('Wedding Store') }}. {{ $t('All rights reserved.') }}
       </div>
       <nav class="flex gap-2">
-        <NuxtLink to="/" class="hover:text-(--color-primary) font-bold transition-all text-sm tracking-tight">Home</NuxtLink>
-        <NuxtLink to="/admin/login" class="hover:text-(--color-primary) font-bold transition-all text-sm tracking-tight">Admin</NuxtLink>
-        <NuxtLink to="/contact" class="hover:text-(--color-primary) font-bold transition-all text-sm tracking-tight">Contact</NuxtLink>
+        <NuxtLink to="/home" class="hover:text-(--color-primary) font-bold transition-all text-sm tracking-tight">{{ $t('Home') }}</NuxtLink>
+        <NuxtLink to="/admin/login" class="hover:text-(--color-primary) font-bold transition-all text-sm tracking-tight">{{ $t('Admin') }}</NuxtLink>
+        <NuxtLink to="/contact" class="hover:text-(--color-primary) font-bold transition-all text-sm tracking-tight">{{ $t('Contact') }}</NuxtLink>
       </nav>
       <div class="flex gap-2">
         <a href="#" aria-label="Instagram" class="text-(--text-light) hover:text-(--color-primary) transition-all transform hover:scale-110">

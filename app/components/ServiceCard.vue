@@ -3,7 +3,7 @@
     <img
       :src="image"
       :alt="title"
-      class="h-48 w-full grow object-cover object-top"
+      class="h-48 w-full grow object-cover object-top hover:scale-105 transition-transform duration-300"
     />
     <div class="p-5 flex flex-col">
       <h2 class="text-xl font-semibold mb-2 text-(--text-main)">

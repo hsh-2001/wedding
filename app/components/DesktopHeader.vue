@@ -6,7 +6,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
 
       <!-- Logo Section -->
-      <div class="flex items-center gap-2 cursor-pointer group" @click="navigateTo('/')">
+      <div class="flex items-center gap-2 cursor-pointer group" @click="navigateTo('/home')">
         <div class="relative w-10 h-10 overflow-hidden rounded-xl border border-(--color-border) shadow-sm transition-transform group-hover:scale-105">
           <img src="/icons/logo.png" class="w-full h-full object-cover" alt="Logo" />
         </div>
@@ -14,7 +14,7 @@
           <span class="text-xl font-bold tracking-tight text-(--text-main) transition-colors group-hover:text-(--color-primary)">
             {{ t('TEST') }}
           </span>
-          <span class="text-[10px] font-semibold uppercase tracking-wider text-(--text-light)">Premium Store</span>
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-(--text-light)">{{ t('Premium Store') }}</span>
         </div>
       </div>
       <nav class="hidden md:flex items-center gap-1">
@@ -46,10 +46,10 @@
         <!-- Language & Theme Switchers Responsive -->
         <div class="hidden sm:block w-24">
           <el-select v-model="selectedLang" @change="changeLanguage" class="custom-select" size="default">
-            <el-option label="English" value="en">
+            <el-option :label="t('English')" value="en">
               <span class="flex items-center gap-2">🇺🇸 En</span>
             </el-option>
-            <el-option label="ខ្មែរ" value="km">
+            <el-option :label="t('Khmer')" value="km">
               <span class="flex items-center gap-2">🇰🇭 Km</span>
             </el-option>
           </el-select>
@@ -84,16 +84,16 @@
         <!-- Mobile Language Sheet -->
         <el-drawer v-model="showLangSheet" direction="rtl" size="60%" :with-header="false" class="sm:hidden simple-drawer">
           <div class="flex flex-col gap-2 p-4">
-            <button @click="selectedLang = 'en'; changeLanguage('en'); showLangSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="selectedLang === 'en' ? 'bg-pink-50' : ''">🇺🇸 English</button>
-            <button @click="selectedLang = 'km'; changeLanguage('km'); showLangSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="selectedLang === 'km' ? 'bg-pink-50' : ''">🇰🇭 Khmer</button>
+            <button @click="selectedLang = 'en'; changeLanguage('en'); showLangSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="selectedLang === 'en' ? 'bg-pink-50' : ''">🇺🇸 {{ t('English') }}</button>
+            <button @click="selectedLang = 'km'; changeLanguage('km'); showLangSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="selectedLang === 'km' ? 'bg-pink-50' : ''">🇰🇭 {{ t('Khmer') }}</button>
           </div>
         </el-drawer>
         <!-- Mobile Theme Sheet -->
         <el-drawer v-model="showThemeSheet" direction="rtl" size="60%" :with-header="false" class="sm:hidden simple-drawer">
           <div class="flex flex-col gap-2 p-4">
-            <button @click="$colorMode.preference = 'light'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'light' ? 'bg-pink-50' : ''">🌞 Light</button>
-            <button @click="$colorMode.preference = 'dark'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'dark' ? 'bg-pink-50' : ''">🌙 Dark</button>
-            <button @click="$colorMode.preference = 'system'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'system' ? 'bg-pink-50' : ''">🖥️ System</button>
+            <button @click="$colorMode.preference = 'light'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'light' ? 'bg-pink-50' : ''">🌞 {{ t('Light') }}</button>
+            <button @click="$colorMode.preference = 'dark'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'dark' ? 'bg-pink-50' : ''">🌙 {{ t('Dark') }}</button>
+            <button @click="$colorMode.preference = 'system'; showThemeSheet = false" class="flex items-center gap-2 p-3 rounded border border-(--color-border) bg-white dark:bg-gray-900 text-base font-medium" :class="$colorMode.preference === 'system' ? 'bg-pink-50' : ''">🖥️ {{ t('System') }}</button>
           </div>
         </el-drawer>
       </div>

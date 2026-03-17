@@ -40,7 +40,7 @@ export async function upsertGuestApi(data: IUpsertGuestRequest): Promise<ApiResp
   return getBaseResponse(result.data);
 }
 
-export async function getGuestsByWeddingIdApi(weddingId: string, limit = 25, offset = 0): Promise<ApiResponse<GuestResponse[]>> {
-  const result = await api.get(`/event/guest/guest-list?wedding_id=${weddingId}&limit=${limit}&offset=${offset}`);
+export async function getGuestsByWeddingIdApi(weddingId: string, limit = 25, page = 1, search = ''): Promise<ApiResponse<GuestResponse[]>> {
+  const result = await api.get(`/event/guest/guest-list?wedding_id=${weddingId}&limit=${limit}&page=${page}&search=${search}`);
   return getBaseResponse(result.data);
 }

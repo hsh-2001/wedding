@@ -2,8 +2,8 @@
   <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-purple-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
     <div class="w-full max-w-md bg-(--color-surface) rounded-2xl shadow-xl p-10 animate-fade-in border border-(--color-border)">
       <div class="flex justify-center mb-8 gap-2">
-        <el-button :type="activeForm === 'login' ? 'primary' : 'default'" @click="switchForm('login')" class="w-1/2">Login</el-button>
-        <el-button :type="activeForm === 'register' ? 'primary' : 'default'" @click="switchForm('register')" class="w-1/2">Register</el-button>
+        <el-button :type="activeForm === 'login' ? 'primary' : 'default'" @click="switchForm('login')" class="w-1/2">{{ $t('Login') }}</el-button>
+        <el-button :type="activeForm === 'register' ? 'primary' : 'default'" @click="switchForm('register')" class="w-1/2">{{ $t('Register') }}</el-button>
       </div>
       <transition name="fade-slide" mode="out-in">
         <div v-if="activeForm === 'login'" key="login">
@@ -14,7 +14,7 @@
             <el-form-item :label="$t('Password')" prop="password">
               <el-input v-model="form.password" type="password" :placeholder="$t('Enter your password')" size="large" show-password />
             </el-form-item>
-            <el-button :loading="loading" type="primary" class="w-full mt-4" @click="onLogin" size="large">Login</el-button>
+            <el-button :loading="loading" type="primary" class="w-full mt-4" @click="onLogin" size="large">{{ $t('Login') }}</el-button>
           </el-form>
         </div>
         <div v-else key="register">
@@ -31,7 +31,7 @@
             <el-form-item :label="$t('Confirm Password')" prop="confirm_password">
               <el-input v-model="registerForm.confirm_password" type="password" :placeholder="$t('Confirm your password')" size="large" show-password />
             </el-form-item>
-            <el-button :loading="loading" type="primary" class="w-full mt-4" @click="onRegister" size="large">Register</el-button>
+            <el-button :loading="loading" type="primary" class="w-full mt-4" @click="onRegister" size="large">{{ $t('Register') }}</el-button>
           </el-form>
         </div>
       </transition>

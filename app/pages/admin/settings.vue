@@ -2,8 +2,8 @@
   <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
     <PageHeader 
-      title="Company Settings" 
-      description="Manage your store's information, branding, and notification preferences."
+      :title="$t('Company Settings')" 
+      :description="$t(`Manage your store's information, branding, and notification preferences.`)"
       :icon="Building2"
     />
 
@@ -11,33 +11,33 @@
       <template #header>
         <div class="flex items-center gap-2">
           <Building class="w-5 h-5 text-blue-500" />
-          <span class="font-bold text-(--text-main)">Company Information</span>
+          <span class="font-bold text-(--text-main)">{{ $t('Company Information') }}</span>
         </div>
       </template>
 
       <div class="grid md:grid-cols-2 gap-2">
-        <el-form-item label="Company Name" class="mb-0">
-          <el-input v-model="form.company_name" placeholder="Company Name" />
+        <el-form-item :label="$t('Company Name')" class="mb-0">
+          <el-input v-model="form.company_name" :placeholder="$t('Company Name')" />
         </el-form-item>
 
-        <el-form-item label="Company Email" class="mb-0">
-          <el-input v-model="form.company_email" placeholder="Company Email" />
+        <el-form-item :label="$t('Company Email')" class="mb-0">
+          <el-input v-model="form.company_email" :placeholder="$t('Company Email')" />
         </el-form-item>
 
-        <el-form-item label="Phone Number" class="mb-0">
-          <el-input v-model="form.phone" placeholder="Phone Number" />
+        <el-form-item :label="$t('Phone Number')" class="mb-0">
+          <el-input v-model="form.phone" :placeholder="$t('Phone Number')" />
         </el-form-item>
 
-        <el-form-item label="Website" class="mb-0">
-          <el-input v-model="form.website" placeholder="Website" />
+        <el-form-item :label="$t('Website')" class="mb-0">
+          <el-input v-model="form.website" :placeholder="$t('Website')" />
         </el-form-item>
 
-        <el-form-item label="Company Address" class="md:col-span-2 mb-0">
+        <el-form-item :label="$t('Company Address')" class="md:col-span-2 mb-0">
           <el-input
             v-model="form.address"
             type="textarea"
             :rows="3"
-            placeholder="Company Address"
+            :placeholder="$t('Company Address')"
           />
         </el-form-item>
       </div>
@@ -48,23 +48,23 @@
       <template #header>
         <div class="flex items-center gap-2">
           <Palette class="w-5 h-5 text-pink-500" />
-          <span class="font-bold text-(--text-main)">Branding</span>
+          <span class="font-bold text-(--text-main)">{{ $t('Branding') }}</span>
         </div>
       </template>
 
       <div class="grid md:grid-cols-2 gap-2">
-        <el-form-item label="Primary Color" class="mb-0">
-          <el-input v-model="form.brand_color" placeholder="Primary Color">
+        <el-form-item :label="$t('Primary Color')" class="mb-0">
+          <el-input v-model="form.brand_color" :placeholder="$t('Primary Color')">
             <template #append>
               <el-color-picker v-model="form.brand_color" size="small" />
             </template>
           </el-input>
         </el-form-item>
 
-        <el-form-item label="Default Theme" class="mb-0">
-          <el-select v-model="form.theme" placeholder="Theme" class="w-full">
-            <el-option label="Light" value="light" />
-            <el-option label="Dark" value="dark" />
+        <el-form-item :label="$t('Default Theme')" class="mb-0">
+          <el-select v-model="form.theme" :placeholder="$t('Theme')" class="w-full">
+            <el-option :label="$t('Light')" value="light" />
+            <el-option :label="$t('Dark')" value="dark" />
           </el-select>
         </el-form-item>
 
@@ -77,7 +77,7 @@
           >
             <Upload class="w-8 h-8 mx-auto mb-2 text-(--text-light)" />
             <div class="text-sm text-(--text-muted)">
-              Drag logo here or <span class="text-(--color-primary)">click to upload</span>
+              {{ $t('Drag logo here or') }} <span class="text-(--color-primary)">{{ $t('click to upload') }}</span>
             </div>
           </el-upload>
         </div>
@@ -89,19 +89,19 @@
       <template #header>
         <div class="flex items-center gap-2">
           <Bell class="w-5 h-5 text-amber-500" />
-          <span class="font-bold text-(--text-main)">Notifications</span>
+          <span class="font-bold text-(--text-main)">{{ $t('Notifications') }}</span>
         </div>
       </template>
 
       <div class="flex flex-col sm:flex-row gap-2">
         <el-switch
           v-model="form.email_notification"
-          active-text="Email Notification"
+          :active-text="$t('Email Notification')"
         />
 
         <el-switch
           v-model="form.sms_notification"
-          active-text="SMS Notification"
+          :active-text="$t('SMS Notification')"
         />
       </div>
     </el-card>

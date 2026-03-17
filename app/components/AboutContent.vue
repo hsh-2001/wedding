@@ -4,11 +4,11 @@
       <!-- Header Section -->
       <div class="text-center mb-12">
         <h1 class="text-3xl md:text-4xl font-bold mb-4 text-(--text-main)">
-          About <span class="text-pink-600">Our Wedding Store</span>
+          {{ $t('About') }} <span class="text-pink-600">{{ $t('Our Wedding Store') }}</span>
         </h1>
         <div class="w-20 h-1 bg-pink-500 mx-auto rounded-full mb-6"></div>
         <p class="text-(--text-muted) max-w-2xl mx-auto leading-relaxed">
-          Crafting unforgettable moments since 2020. We believe every love story is unique and deserves a celebration that reflects its beauty.
+          {{ $t('Crafting unforgettable moments since 2020. We believe every love story is unique and deserves a celebration that reflects its beauty.') }}
         </p>
       </div>
 
@@ -17,17 +17,17 @@
         <div class="relative">
           <img 
             src="https://images.unsplash.com/photo-1519225421980-715cb0215aed" 
-            alt="Our Story" 
+            :alt="$t('Our Story')" 
             class="rounded-lg shadow-sm w-full h-[350px] object-cover border border-(--color-border)"
           />
         </div>
         <div>
-          <h2 class="text-2xl font-bold mb-4 text-(--text-main)">Our Passion & Vision</h2>
+          <h2 class="text-2xl font-bold mb-4 text-(--text-main)">{{ $t('Our Passion & Vision') }}</h2>
           <p class="text-(--text-muted) mb-4 leading-relaxed">
-            What started as a small boutique for wedding invitations has grown into a full-service wedding planning and supply destination. Our mission is to simplify the wedding planning process while ensuring the highest quality and attention to detail.
+            {{ $t('What started as a small boutique for wedding invitations has grown into a full-service wedding planning and supply destination. Our mission is to simplify the wedding planning process while ensuring the highest quality and attention to detail.') }}
           </p>
           <p class="text-(--text-muted) mb-6 leading-relaxed">
-            We work with the best vendors and designers to bring you exclusive collections and services that you won't find anywhere else.
+            {{ $t(`We work with the best vendors and designers to bring you exclusive collections and services that you won't find anywhere else.`) }}
           </p>
           <div class="grid grid-cols-2 gap-4">
             <div 
@@ -44,7 +44,7 @@
 
       <!-- Why Choose Us -->
       <div class="bg-(--color-surface) rounded-lg p-8 md:p-10 border border-(--color-border) shadow-sm">
-        <h2 class="text-2xl font-bold text-center mb-10 text-(--text-main)">Why Choose Us?</h2>
+        <h2 class="text-2xl font-bold text-center mb-10 text-(--text-main)">{{ $t('Why Choose Us?') }}</h2>
         <div class="grid md:grid-cols-3 gap-8">
           <div v-for="feature in features" :key="feature.title" class="text-center">
             <div class="w-12 h-12 bg-pink-50 dark:bg-pink-900/20 rounded-md flex items-center justify-center mx-auto mb-4 text-pink-600">

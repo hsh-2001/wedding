@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TemplateOne />
+    <TemplateOne :event-data="data" />
   </div>
 </template>
 
@@ -24,6 +24,8 @@ const data = {
   isWedding: true,
   coverImage: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622',
   venue: 'Phnom Penh Hotel',
+  venueAddress: 'No. 53 Monivong Blvd, Sangkat Srah Chak, Phnom Penh',
+  time: '05:00 PM - 09:30 PM',
   description: 'Join us for a beautiful wedding celebration in Phnom Penh!'
 }
 

@@ -66,7 +66,7 @@
                     <div class="col-span-1 md:col-span-2 mt-4">
                         <h3 class="text-lg font-bold text-(--text-main) flex items-center gap-2">
                             <CalendarIcon class="w-5 h-5 text-(--color-primary)" />
-                            Event Details
+                            {{ $t('Event Details') }}
                         </h3>
                     </div>
 

@@ -4,11 +4,11 @@
       <!-- Header Section -->
       <div class="text-center mb-12">
         <h1 class="text-3xl md:text-4xl font-bold mb-4 text-(--text-main)">
-          Get in <span class="text-pink-600">Touch</span>
+          {{ $t('Get in') }} <span class="text-pink-600">{{ $t('Touch') }}</span>
         </h1>
         <div class="w-20 h-1 bg-pink-500 mx-auto rounded-full mb-6"></div>
         <p class="text-(--text-muted) max-w-2xl mx-auto">
-          Have questions about our services or want to start planning your big day? We're here to help!
+          {{ $t(`Have questions about our services or want to start planning your big day? We're here to help!`) }}
         </p>
       </div>
 
@@ -16,7 +16,7 @@
         <!-- Contact Info -->
         <div class="space-y-6">
           <div class="bg-(--color-surface) p-6 rounded-lg border border-(--color-border) shadow-sm">
-            <h3 class="text-lg font-bold mb-6 text-(--text-main)">Contact Information</h3>
+            <h3 class="text-lg font-bold mb-6 text-(--text-main)">{{ $t('Contact Information') }}</h3>
             
             <div class="space-y-5">
               <div v-for="info in contactInfo" :key="info.title" class="flex items-start gap-4">
@@ -40,7 +40,7 @@
             </div>
 
             <div class="mt-8 pt-6 border-t border-(--color-border)">
-              <h4 class="text-xs font-bold mb-3 text-(--text-light) uppercase tracking-wider">Follow Us</h4>
+              <h4 class="text-xs font-bold mb-3 text-(--text-light) uppercase tracking-wider">{{ $t('Follow Us') }}</h4>
               <div class="flex gap-3">
                 <a href="#" class="w-8 h-8 bg-(--color-background) rounded-md flex items-center justify-center border border-(--color-border) hover:border-pink-500 hover:text-pink-500 transition-colors">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -56,33 +56,33 @@
         <!-- Contact Form -->
         <div class="lg:col-span-2">
           <div class="bg-(--color-surface) p-6 md:p-8 rounded-lg border border-(--color-border) shadow-sm">
-            <h3 class="text-xl font-bold mb-6 text-(--text-main)">Send us a Message</h3>
+            <h3 class="text-xl font-bold mb-6 text-(--text-main)">{{ $t('Send us a Message') }}</h3>
             
             <form @submit.prevent="submitForm" class="grid md:grid-cols-2 gap-5">
               <div class="space-y-1.5">
-                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">First Name</label>
-                <input v-model="form.firstName" type="text" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" placeholder="John" />
+                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">{{ $t('First Name') }}</label>
+                <input v-model="form.firstName" type="text" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" :placeholder="$t('First Name')" />
               </div>
               <div class="space-y-1.5">
-                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">Last Name</label>
-                <input v-model="form.lastName" type="text" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" placeholder="Doe" />
+                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">{{ $t('Last Name') }}</label>
+                <input v-model="form.lastName" type="text" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" :placeholder="$t('Last Name')" />
               </div>
               <div class="space-y-1.5 md:col-span-2">
-                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">Email Address</label>
-                <input v-model="form.email" type="email" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" placeholder="john@example.com" />
+                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">{{ $t('Email Address') }}</label>
+                <input v-model="form.email" type="email" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" :placeholder="$t('Email Address')" />
               </div>
               <div class="space-y-1.5 md:col-span-2">
-                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">Subject</label>
-                <input v-model="form.subject" type="text" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" placeholder="How can we help?" />
+                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">{{ $t('Subject') }}</label>
+                <input v-model="form.subject" type="text" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all placeholder:text-gray-400" :placeholder="$t('How can we help?')" />
               </div>
               <div class="space-y-1.5 md:col-span-2">
-                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">Message</label>
-                <textarea v-model="form.message" rows="4" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all resize-none placeholder:text-gray-400" placeholder="Your message here..."></textarea>
+                <label class="text-xs font-bold text-(--text-main) uppercase tracking-wide">{{ $t('Message') }}</label>
+                <textarea v-model="form.message" rows="4" class="w-full bg-(--color-background) border border-(--color-border) rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-500 focus:border-pink-500 transition-all resize-none placeholder:text-gray-400" :placeholder="$t('Your message here...')"></textarea>
               </div>
               
               <div class="md:col-span-2 pt-2">
                 <button type="submit" class="w-full md:w-auto bg-pink-500 hover:bg-pink-600 text-white font-bold py-2.5 px-10 rounded-md text-sm shadow-sm transition-all active:scale-95">
-                  Send Message
+                  {{ $t('Send Message') }}
                 </button>
               </div>
             </form>

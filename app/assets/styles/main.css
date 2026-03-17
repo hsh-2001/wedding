@@ -13,6 +13,8 @@
 	--text-muted: #4b5563;
 	--text-light: #9ca3af;
 	--active-color: #F2689B;
+	--font-khmer-body: 'Noto Sans Khmer', sans-serif;
+	--font-khmer-display: 'Noto Serif Khmer', serif;
 }
 
 .dark {
@@ -27,5 +29,6 @@
 body {
 	background-color: var(--color-background);
 	color: var(--text-main);
+	font-family: var(--font-khmer-body);
 	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

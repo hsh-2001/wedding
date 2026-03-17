@@ -3,7 +3,7 @@
     <el-select 
       v-model="$colorMode.preference" 
       class="theme-select" 
-      placeholder="Theme"
+      :placeholder="$t('Theme')"
       size="default"
     >
       <template #prefix>
@@ -14,22 +14,22 @@
         </div>
       </template>
       
-      <el-option value="light" label="Light">
+      <el-option value="light" :label="$t('Light')">
         <div class="flex items-center gap-2">
           <Sun class="w-4 h-4 text-amber-500" />
-          <span class="font-semibold">Light</span>
+          <span class="font-semibold">{{ $t('Light') }}</span>
         </div>
       </el-option>
-      <el-option value="dark" label="Dark">
+      <el-option value="dark" :label="$t('Dark')">
         <div class="flex items-center gap-2">
           <Moon class="w-4 h-4 text-indigo-400" />
-          <span class="font-semibold">Dark</span>
+          <span class="font-semibold">{{ $t('Dark') }}</span>
         </div>
       </el-option>
-      <el-option value="system" label="System">
+      <el-option value="system" :label="$t('System')">
         <div class="flex items-center gap-2">
           <Monitor class="w-4 h-4 text-gray-500" />
-          <span class="font-semibold">System</span>
+          <span class="font-semibold">{{ $t('System') }}</span>
         </div>
       </el-option>
     </el-select>

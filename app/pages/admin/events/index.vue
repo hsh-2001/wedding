@@ -44,10 +44,10 @@
                 <div class="px-6 py-4 bg-gray-50/50 dark:bg-white/5 border-t border-(--color-border) flex justify-between items-center">
                     <div class="flex items-center">
                         <span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-2"></span>
-                        <span class="text-[10px] text-(--text-light) font-bold uppercase tracking-wider">Confirmed</span>
+                        <span class="text-[10px] text-(--text-light) font-bold uppercase tracking-wider">{{ $t('Confirmed') }}</span>
                     </div>
                     <el-button link class="text-(--color-primary)! font-bold!" @click="$router.push(`/admin/events/wedding/${item.id}`)">
-                        Details <ArrowRight class="w-4 h-4 ml-1.5" />
+                        {{ $t('Details') }} <ArrowRight class="w-4 h-4 ml-1.5" />
                     </el-button>
                 </div>
             </div>

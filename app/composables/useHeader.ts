@@ -48,7 +48,7 @@ export default function useHeader() {
 
   const guestRoutes = computed<INavbarItem[]>(() => {
     return [
-      { name: 'home', path: '/', activedPath: '/' },
+      { name: 'home', path: '/home', activedPath: '/home' },
       { name: 'service', path: '/service', activedPath: '/service' },
       { name: 'about', path: '/about', activedPath: '/about' },
       { name: 'contact', path: '/contact', activedPath: '/contact' },

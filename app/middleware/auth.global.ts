@@ -22,6 +22,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
     return navigateTo('/admin/login');
   }
   if (token && to.path === '/admin/login') {
-    return navigateTo('/');
+    return navigateTo('/admin/dashboard');
   }
 })

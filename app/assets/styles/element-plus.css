@@ -1,8 +1,8 @@
 
 :root {
   /* Map project variables to Element Plus variables */
-  --el-color-primary: var(--color-primary);
-  --el-color-primary-light-3: var(--color-secondary);
+  --el-color-primary: var(--color-primary) !important;
+  --el-color-primary-light-3: var(--color-secondary) !important;
   --el-border-radius-base: 8px; /* Slightly softer than default but "normal" */
 }
 
